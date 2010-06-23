@@ -1,0 +1,9 @@
+#!/bin/bash
+
+GUIDIR=$SICILIA/app/ctdibpm/
+export PYTHONPATH=${GUIDIR}:$PYTHONPATH
+
+cd ${GUIDIR}
+exec python ctdibpm.py $*
+
+cd -
