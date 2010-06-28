@@ -752,7 +752,7 @@ class MainWindow(QtGui.QMainWindow):
         def EPset(self):
             if (self.dp == None):
                 QtGui.QMessageBox.warning(self,self.tr("Set environment parameters"),
-                                               self.tr("No connetion to any libera"))
+                                               self.tr("No connection to any libera"))
                 return
             answer = QtGui.QMessageBox.question(self,
                     self.tr("Set environment parameters"),
@@ -1569,7 +1569,7 @@ class GainScheme(QtGui.QWidget):
 
     def new(self):
         if (self.dp == None):
-            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connetion to any libera"))
+            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connection to any libera"))
             return False
         if self.textModified:
             answer = QtGui.QMessageBox.question(self,
@@ -1584,7 +1584,7 @@ class GainScheme(QtGui.QWidget):
 
     def open(self):
         if (self.dp == None):
-            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connetion to any libera"))
+            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connection to any libera"))
             return False
         if self.textModified:
             answer = QtGui.QMessageBox.question(self,
@@ -1611,7 +1611,7 @@ class GainScheme(QtGui.QWidget):
 
     def save(self, fileName=None):
         if (self.dp == None):
-            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connetion to any libera"))
+            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connection to any libera"))
             return False
         # Get file name from Save dialog
         if fileName == None:
@@ -1636,7 +1636,7 @@ class GainScheme(QtGui.QWidget):
     def downloadGain(self):
         #check if we have connection to the libera
         if (self.dp == None):
-            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connetion to any libera"))
+            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connection to any libera"))
             return False
         #check if the file contents have been changed
         if self.textModified:
@@ -1649,29 +1649,28 @@ class GainScheme(QtGui.QWidget):
                 return False
         #get gain.conf file from the libera
         try:
-            self.dp.command_inout("GainDownload",GAIN_FILENAME)
+            self.ui.textEdit.setPlainText(self.dp.command_inout("GainDownload"))
+            self.textModified = False
         except PyTango.DevFailed, e:
             QtGui.QMessageBox.critical(None, "downloadGain" , repr(e))
             return False
 
-        gainFile = QtCore.QFile(GAIN_FILENAME)
-        if not gainFile.open( QtCore.QFile.ReadOnly | QtCore.QFile.Text):
-            QtGui.QMessageBox.warning(None, "Open file", "Cannot read file " + GAIN_FILENAME)
-            return
-        inStream = QtCore.QTextStream(gainFile)
-        self.ui.textEdit.setPlainText(inStream.readAll())
-        #self.ui.textEdit.setPlainText(fileContents)
-        self.textModified = False
-        gainFile.close()
-
     def uploadGain(self):
         if (self.dp == None):
-            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connetion to any libera"))
+            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connection to any libera"))
             return False
 
-        self.save(GAIN_FILENAME)
         try:
-            self.dp.command_inout("GainUpload",GAIN_FILENAME)
+            txt = str(self.ui.textEdit.toPlainText())
+            if txt == "":
+                a = QtGui.QMessageBox.question(self, 
+                        self.tr("Empty gain contents"),
+                        self.tr("The gain gain config you try to upload is empty."
+                        " Are you sure you want to continue?"),
+                        QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+                if (a == QtGui.QMessageBox.No):
+                    return
+            self.dp.command_inout("GainUpload",txt)
         except PyTango.DevFailed, e:
             QtGui.QMessageBox.critical(None, "uploadGain" , repr(e))
             return False
@@ -1700,7 +1699,7 @@ class Log(QtGui.QWidget):
 
     def update(self):
         if (self.dp == None):
-            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connetion to any libera"))
+            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connection to any libera"))
             return False
         self.ui.textEdit.clear()
         log = self.dp.read_attribute("logs").value
@@ -1710,7 +1709,7 @@ class Log(QtGui.QWidget):
 
     def save(self, fileName=None):
         if (self.dp == None):
-            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connetion to any libera"))
+            QtGui.QMessageBox.warning(self,self.tr("No connection"),self.tr("No connection to any libera"))
             return False
         # Get file name from Save dialog
         if fileName == None:
