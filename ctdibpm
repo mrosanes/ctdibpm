@@ -1,9 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env python
 
-GUIDIR=$SICILIA/app/ctdibpm/
-export PYTHONPATH=${GUIDIR}:$PYTHONPATH
+import sys
+import os
 
-cd ${GUIDIR}
-exec python ctdibpm.py $*
+def main():
+    try:
+        home = os.environ["SICILIA"]
+    except:
+        home = ".."
+    sys.path.insert(0,home+"/app/ctdibpm")
+    import ctdibpm
+    ctdibpm.main()
 
-cd -
+if __name__ == "__main__":
+    main()

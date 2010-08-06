@@ -1738,7 +1738,7 @@ class Log(QtGui.QWidget):
 
 
 
-if __name__ == "__main__":
+def main():
     #parse posible arguments
     parser = OptionParser()
     parser.add_option("-d", "--device-name", action="store", dest="liberaDsName",
@@ -1751,3 +1751,8 @@ if __name__ == "__main__":
     #tau.core.utils.Logger.setLogLevel(tau.core.utils.Logger.Debug)
     tau.setLogLevel(tau.Debug)
     sys.exit(app.exec_())
+
+
+
+if __name__ == "__main__":
+    main()
