@@ -1741,9 +1741,14 @@ class Log(QtGui.QWidget):
 def main():
     #parse posible arguments
     parser = OptionParser()
-    parser.add_option("-d", "--device-name", action="store", dest="liberaDsName",
-                     type="string", help="Libera device name to connect to")
+    parser.add_option("-d", "--device-name", action="store", dest="liberaDsName", type="string", help="Libera device name to connect to")
+    parser.add_option("-d", "--debug", action="store_true", dest="debug", help="print debug info")
     (options, args) = parser.parse_args()
+
+    #set log level for tau
+    if options.debug:
+        tau.setLogLevel(tau.Debug)
+
     #start the application
     app = QtGui.QApplication(args)
     mainUI = MainWindow(None,options.liberaDsName)
