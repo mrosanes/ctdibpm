@@ -1742,11 +1742,11 @@ def main():
     #parse posible arguments
     parser = OptionParser()
     parser.add_option("-d", "--device-name", action="store", dest="liberaDsName", type="string", help="Libera device name to connect to")
-    parser.add_option("-d", "--debug", action="store_true", dest="debug", help="print debug info")
+    parser.add_option("-i", "--info", action="store_true", dest="info", help="print debug info")
     (options, args) = parser.parse_args()
 
     #set log level for tau
-    if options.debug:
+    if options.info:
         tau.setLogLevel(tau.Debug)
 
     #start the application
