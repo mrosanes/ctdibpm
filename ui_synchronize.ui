@@ -194,8 +194,8 @@
         <string/>
        </property>
        <property name="icon" >
-        <iconset>
-         <normaloff>images/open.png</normaloff>images/open.png</iconset>
+        <iconset resource="ctdibpm.qrc" >
+         <normaloff>:/icons/icons/open.png</normaloff>:/icons/icons/open.png</iconset>
        </property>
       </widget>
      </item>
@@ -214,8 +214,8 @@
         <string/>
        </property>
        <property name="icon" >
-        <iconset>
-         <normaloff>images/save2.png</normaloff>images/save2.png</iconset>
+        <iconset resource="ctdibpm.qrc" >
+         <normaloff>:/icons/icons/save.png</normaloff>:/icons/icons/save.png</iconset>
        </property>
       </widget>
      </item>
@@ -259,6 +259,8 @@
   <tabstop>tableWidget4</tabstop>
   <tabstop>tableWidget5</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="ctdibpm.qrc" />
+ </resources>
  <connections/>
 </ui>

@@ -26,8 +26,8 @@
       <string>Update</string>
      </property>
      <property name="icon" >
-      <iconset>
-       <normaloff>images/restart.png</normaloff>images/restart.png</iconset>
+      <iconset resource="ctdibpm.qrc" >
+       <normaloff>:/icons/icons/restart.png</normaloff>:/icons/icons/restart.png</iconset>
      </property>
     </widget>
    </item>
@@ -37,8 +37,8 @@
       <string>Save</string>
      </property>
      <property name="icon" >
-      <iconset>
-       <normaloff>images/save.png</normaloff>images/save.png</iconset>
+      <iconset resource="ctdibpm.qrc" >
+       <normaloff>:/icons/icons/save.png</normaloff>:/icons/icons/save.png</iconset>
      </property>
     </widget>
    </item>
@@ -48,8 +48,8 @@
       <string>Print</string>
      </property>
      <property name="icon" >
-      <iconset>
-       <normaloff>images/print.png</normaloff>images/print.png</iconset>
+      <iconset resource="ctdibpm.qrc" >
+       <normaloff>:/icons/icons/print.png</normaloff>:/icons/icons/print.png</iconset>
      </property>
     </widget>
    </item>
@@ -68,6 +68,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="ctdibpm.qrc" />
+ </resources>
  <connections/>
 </ui>

@@ -13,8 +13,8 @@
    <string>Libera GUI</string>
   </property>
   <property name="windowIcon" >
-   <iconset>
-    <normaloff>images/libera.png</normaloff>images/libera.png</iconset>
+   <iconset resource="ctdibpm.qrc" >
+    <normaloff>:/icons/icons/ctdibpm.png</normaloff>:/icons/icons/ctdibpm.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <layout class="QGridLayout" >
@@ -2240,8 +2240,8 @@
                 <string>Save</string>
                </property>
                <property name="icon" >
-                <iconset>
-                 <normaloff>images/save2.png</normaloff>images/save2.png</iconset>
+                <iconset resource="ctdibpm.qrc" >
+                 <normaloff>:/icons/icons/save.png</normaloff>:/icons/icons/save.png</iconset>
                </property>
               </widget>
              </item>
@@ -2409,8 +2409,8 @@
                 <string>Save</string>
                </property>
                <property name="icon" >
-                <iconset>
-                 <normaloff>images/save2.png</normaloff>images/save2.png</iconset>
+                <iconset resource="ctdibpm.qrc" >
+                 <normaloff>:/icons/icons/save.png</normaloff>:/icons/icons/save.png</iconset>
                </property>
               </widget>
              </item>
@@ -2483,7 +2483,7 @@
      <x>0</x>
      <y>0</y>
      <width>1277</width>
-     <height>24</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuUnit" >
@@ -2554,10 +2554,6 @@
    <property name="windowTitle" >
     <string>Libera tool bar</string>
    </property>
-   <property name="windowIcon" >
-    <iconset>
-     <normaloff>images/AlbaLogo.png</normaloff>images/AlbaLogo.png</iconset>
-   </property>
    <property name="orientation" >
     <enum>Qt::Horizontal</enum>
    </property>
@@ -2576,19 +2572,10 @@
    <addaction name="actionHelp" />
    <addaction name="actionQuit" />
   </widget>
-  <action name="actionNew" >
-   <property name="icon" >
-    <iconset>
-     <normaloff>images/new.png</normaloff>images/new.png</iconset>
-   </property>
-   <property name="text" >
-    <string>New</string>
-   </property>
-  </action>
   <action name="actionOpen" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/open.png</normaloff>images/open.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/open.png</normaloff>:/icons/icons/open.png</iconset>
    </property>
    <property name="text" >
     <string>Open</string>
@@ -2596,8 +2583,8 @@
   </action>
   <action name="actionSave" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/save.png</normaloff>images/save.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/save.png</normaloff>:/icons/icons/save.png</iconset>
    </property>
    <property name="text" >
     <string>Save</string>
@@ -2605,8 +2592,8 @@
   </action>
   <action name="actionPrint" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/print.png</normaloff>images/print.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/print.png</normaloff>:/icons/icons/print.png</iconset>
    </property>
    <property name="text" >
     <string>Print</string>
@@ -2617,35 +2604,17 @@
   </action>
   <action name="actionScreenshot" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/screenshot.png</normaloff>images/screenshot.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/screenshot.png</normaloff>:/icons/icons/screenshot.png</iconset>
    </property>
    <property name="text" >
     <string>Screenshot</string>
    </property>
   </action>
-  <action name="actionZoomPlus" >
-   <property name="icon" >
-    <iconset>
-     <normaloff>images/zoom+.png</normaloff>images/zoom+.png</iconset>
-   </property>
-   <property name="text" >
-    <string>ZoomPlus</string>
-   </property>
-  </action>
-  <action name="actionZoomMinus" >
-   <property name="icon" >
-    <iconset>
-     <normaloff>images/zoom-.png</normaloff>images/zoom-.png</iconset>
-   </property>
-   <property name="text" >
-    <string>ZoomMinus</string>
-   </property>
-  </action>
   <action name="actionQuit" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/quit.png</normaloff>images/quit.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/quit.png</normaloff>:/icons/icons/quit.png</iconset>
    </property>
    <property name="text" >
     <string>Quit</string>
@@ -2661,8 +2630,8 @@
   </action>
   <action name="actionLiberaStart" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/start2.png</normaloff>images/start2.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/start2.png</normaloff>:/icons/icons/start2.png</iconset>
    </property>
    <property name="text" >
     <string>LiberaStart</string>
@@ -2673,8 +2642,8 @@
   </action>
   <action name="actionLiberaStop" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/stop.png</normaloff>images/stop.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/stop.png</normaloff>:/icons/icons/stop.png</iconset>
    </property>
    <property name="text" >
     <string>LiberaStop</string>
@@ -2682,8 +2651,8 @@
   </action>
   <action name="actionLiberaRestart" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/restart.png</normaloff>images/restart.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/restart.png</normaloff>:/icons/icons/restart.png</iconset>
    </property>
    <property name="text" >
     <string>LiberaRestart</string>
@@ -2691,8 +2660,8 @@
   </action>
   <action name="actionConnectToLibera" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/libera_selection.png</normaloff>images/libera_selection.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/selection.png</normaloff>:/icons/icons/selection.png</iconset>
    </property>
    <property name="text" >
     <string>Connect to libera</string>
@@ -2753,19 +2722,10 @@
     <string>Gain scheme</string>
    </property>
   </action>
-  <action name="actionSelectByName" >
-   <property name="icon" >
-    <iconset>
-     <normaloff>images/libera_selectionA.png</normaloff>images/libera_selectionA.png</iconset>
-   </property>
-   <property name="text" >
-    <string>Select by device name</string>
-   </property>
-  </action>
   <action name="actionHelp" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/info.png</normaloff>images/info.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/info.png</normaloff>:/icons/icons/info.png</iconset>
    </property>
    <property name="text" >
     <string>Online help</string>
@@ -2773,8 +2733,8 @@
   </action>
   <action name="actionAbout" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/AlbaLogo.png</normaloff>images/AlbaLogo.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/AlbaLogo.png</normaloff>:/icons/icons/AlbaLogo.png</iconset>
    </property>
    <property name="text" >
     <string>About</string>
@@ -2787,8 +2747,8 @@
   </action>
   <action name="actionLiberaReboot" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/reload.png</normaloff>images/reload.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/reload.png</normaloff>:/icons/icons/reload.png</iconset>
    </property>
    <property name="text" >
     <string>LiberaReboot</string>
@@ -2796,8 +2756,8 @@
   </action>
   <action name="actionLiberaDSInit" >
    <property name="icon" >
-    <iconset>
-     <normaloff>images/restart.png</normaloff>images/restart.png</iconset>
+    <iconset resource="ctdibpm.qrc" >
+     <normaloff>:/icons/icons/restart.png</normaloff>:/icons/icons/restart.png</iconset>
    </property>
    <property name="text" >
     <string>Libera DS Init()</string>
@@ -2874,6 +2834,8 @@
   <tabstop>DDcheckSingle2</tabstop>
   <tabstop>DDstop2</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="ctdibpm.qrc" />
+ </resources>
  <connections/>
 </ui>

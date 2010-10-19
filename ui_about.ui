@@ -16,8 +16,8 @@
    <string>About</string>
   </property>
   <property name="windowIcon" >
-   <iconset>
-    <normaloff>../images/libera.png</normaloff>../images/libera.png</iconset>
+   <iconset resource="ctdibpm.qrc" >
+    <normaloff>:/icons/icons/ctdibpm.png</normaloff>:/icons/icons/ctdibpm.png</iconset>
   </property>
   <layout class="QGridLayout" >
    <item row="0" column="0" >
@@ -26,7 +26,7 @@
       <string/>
      </property>
      <property name="pixmap" >
-      <pixmap>images/AlbaLogo.png</pixmap>
+      <pixmap resource="ctdibpm.qrc" >:/icons/icons/AlbaLogo.png</pixmap>
      </property>
     </widget>
    </item>
@@ -86,7 +86,9 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="ctdibpm.qrc" />
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

@@ -1,3 +1,0 @@
-#!/usr/bin/sh
-
-python $SICILIA/app/ltbBpm/ltbBpm.py

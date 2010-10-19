@@ -5,13 +5,13 @@
 
 UIC = pyuic4
 
-all: ui_about.py ui_gainscheme.py ui_libera.py ui_settime.py ui_statusbar.py ui_synchronize.py ui_log.py
+all: ui_about.py ui_gainscheme.py ui_libera.py ui_settime.py ui_statusbar.py ui_synchronize.py ui_log.py ctdibpm_rc.py
 
 run: all
 	python ctdibpm.py
 
 clean:
-	rm -f *~ *.pyc ui_*.py
+	rm -f *~ *.pyc ui_*.py ctdibpm_rc.py
 
 ui_about.py: ui_about.ui
 	$(UIC) -x $? -o $@
@@ -34,3 +34,5 @@ ui_synchronize.py: ui_synchronize.ui
 ui_log.py: ui_log.ui
 	$(UIC) -x $? -o $@
 
+ctdibpm_rc.py: ctdibpm.qrc
+	pyrcc4 $? > $@
