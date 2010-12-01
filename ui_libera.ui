@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1277</width>
-    <height>872</height>
+    <width>1400</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -2482,8 +2482,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1277</width>
-     <height>25</height>
+     <width>1400</width>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuUnit" >
@@ -2713,6 +2713,9 @@
    </property>
   </action>
   <action name="actionSynchronize" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="text" >
     <string>Synchronize</string>
    </property>

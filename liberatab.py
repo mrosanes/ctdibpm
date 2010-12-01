@@ -107,33 +107,33 @@ class LiberaTab:
                         raise
 
         def save(self):
+            try:
                 # Get file name from Save dialog
-                fileName = QtGui.QFileDialog.getSaveFileName(None, "Save "+self.tabName+" Channels" , self.tabName[:2] + self.dsName[-3:] + ".dat", "DAT (*.dat)")
-
-                if fileName.isEmpty():
+                defaultName = PyTango.DeviceProxy(self.dsName).read_attribute("SAFileName").value
+                fileName, ok = QtGui.QInputDialog.getText(None, "File name", "File name:", QtGui.QLineEdit.Normal, defaultName)
+                if (not ok or fileName.isEmpty()):
                     return False
-
-                # remember last path
                 fileName = str(fileName.toAscii()) #convert to normal string
 
                 # Call to DS save function
                 if(self.dsName):
-                    try:
-                        self.dp.write_attribute(self.p["filename"][1],str(fileName))
-                        # Check if timestamp has to be saved and inform it to the Device server
-                        if ( self.timestamp != None ):
-                            if(self.timestamp.isChecked()):
-                                timeStamp = True
-                            else:
-                                timeStamp = False
-                            self.dp.write_attribute(self.p["timestamp"][1],timeStamp)
+                    self.dp.write_attribute(self.p["filename"][1],str(fileName))
+                    # Check if timestamp has to be saved and inform it to the Device server
+                    if ( self.timestamp != None ):
+                        if(self.timestamp.isChecked()):
+                            timeStamp = True
+                        else:
+                            timeStamp = False
+                        self.dp.write_attribute(self.p["timestamp"][1],timeStamp)
 
-                        if (self.p["savefunc"][1] != None): #we're not in SA mode
-                            self.dp.command_inout(self.p["savefunc"][1])
-                    except PyTango.DevFailed, e:
-                            QtGui.QMessageBox.critical(None, self.tabName , repr(e))
+                    if (self.p["savefunc"][1] != None): #we're not in SA mode
+                        self.dp.command_inout(self.p["savefunc"][1])
+            except Exception, e:
+                QtGui.QMessageBox.critical(None, self.tabName , repr(e))
+                return False
 
-                return True
+            return True
+
 
         def connectLiberaTab(self):
                 try:

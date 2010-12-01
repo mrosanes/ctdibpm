@@ -196,6 +196,9 @@ class MainWindow(QtGui.QMainWindow):
 
                 self.setTab()
 
+                # show big
+                self.showMaximized()
+
                 #Connect to libera number or libera device (if any specified)
                 if liberaDeviceName:
                     self.connectLibera(liberaDeviceName)
