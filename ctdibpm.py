@@ -227,15 +227,7 @@ class MainWindow(QtGui.QMainWindow):
                 "peakD"         : [self.ui.ADCPeakD, "ADCChannelDPeak"],
                 "singleLoop"    : [self.ui.ADCcheckSingle, None],
                 "timestamp"     : [None, None],
-#                "version"       : [None, None],
-#                "ontrigger"     : [None, None],
-#                "raw"           : [None, None],
-#                "decimation"    : [None, None],
-#                "decimationRB"  : [None, None],
-#                "timesleep"     : [None, None],
-#                "firstcount"    : [None, None],
-#                "lastcount"     : [None, None],
-#                "savefunc"      : [None, "ADCSave"]
+                "enabled"       : [None, "ADCEnabled"],
                 }
                 self.ADCTab = LiberaTab(ADCTabWidgets)
 
@@ -257,6 +249,7 @@ class MainWindow(QtGui.QMainWindow):
                 "decimationRB"  : [self.ui.DDDecimationRB1, 'DDDecimationFactor'],
                 "singleLoop"    : [self.ui.DDcheckSingle1, None],
                 "timestamp"     : [None, None],
+                "enabled"       : [None, "DDEnabled"],
                 }
                 self.DDTab1 = LiberaTab(DDTab1Widgets)
 
@@ -279,6 +272,7 @@ class MainWindow(QtGui.QMainWindow):
                 "decimationRB"  : [self.ui.DDDecimationRB2, 'DDDecimationFactor'],
                 "singleLoop"    : [self.ui.DDcheckSingle1, None],
                 "timestamp"     : [None, None],
+                "enabled"       : [None, "DDEnabled"],
                 }
                 self.DDTab2 = LiberaTab(DDTab2Widgets)
 
@@ -291,29 +285,12 @@ class MainWindow(QtGui.QMainWindow):
                 "stop"          : [None, None],
                 "save"          : [None, None],
                 "resetPM"       : [None, None],
-                #"save"          : [self.ui.save_4, ACTIVE_WIDGET],
                 "samples"       : [self.ui.PMNSamples1, "PMNSamples"],
                 "samplesRB"     : [self.ui.PMNSamplesRB1, "PMNSamples"],
                 "loops"         : [None, None],
-#                "triggercounts" : [None, None],
                 "resetPM"       : [self.ui.PMreset1, "PMResetFlag"],
                 "singleLoop"    : [None, None],
                 "timestamp"     : [None, None],
-#                "version"       : [None, None],
-                #"ontrigger"     : [None, None],
-                #"peakA"         : [None, None],
-                #"peakB"         : [None, None],
-                #"peakC"         : [None, None],
-                #"peakD"         : [None, None],
-                #"raw"           : [None, None],
-                #"decimation"    : [None, None],
-                #"decimationRB"    : [None, None],
-                #"temperaturestamp"   : [None, None],
-                #"timesleep"     : [None, None],
-                #"firstcount"    : [None, None],
-                #"lastcount"     : [None, None],
-                #"filename"      : [None, "PMFileName"],
-                #"savefunc"      : [None, "PMSave"]
                 }
                 self.PMTab1 = LiberaTab(PMTab1Widgets)
 
@@ -326,30 +303,10 @@ class MainWindow(QtGui.QMainWindow):
                 "stop"          : [None, None],
                 "save"          : [None, None],
                 "resetPM"       : [None, None],
-#                "save"          : [self.ui.save_5, ACTIVE_WIDGET],
-#                "version"       : [self.ui.version_5, None],
                 "samples"       : [self.ui.PMNSamples2, "PMNSamples"],
                 "samplesRB"     : [self.ui.PMNSamplesRB2, "PMNSamples"],
-#                "loops"         : [None, None],
                 "singleLoop"    : [None, None],
                 "timestamp"     : [None, None],
-#                "version"       : [None, None],
-#                "triggercounts" : [None, None],
-#                "resetPM"       : [self.ui.PMreset2, "PMResetFlag"],
-#                "ontrigger"     : [None, None],
-#                "peakA"         : [None, None],
-#                "peakB"         : [None, None],
-#                "peakC"         : [None, None],
-#                "peakD"         : [None, None],
-#                "raw"           : [None, None],
-#                "decimation"    : [None, None],
-#                "decimationRB"    : [None, None],
-#                "temperaturestamp"   : [None, None],
-#                "timesleep"     : [None, None],
-#                "firstcount"    : [None, None],
-#                "lastcount"     : [None, None],
-#                "filename"      : [None, "PMFileName"],
-#                "savefunc"      : [None, "PMSave"]
                 }
                 self.PMTab2 = LiberaTab(PMTab2Widgets)
 
@@ -362,32 +319,17 @@ class MainWindow(QtGui.QMainWindow):
                 "stop"          : [self.ui.SAstop1, "SAStop"],
                 "save"          : [None, None],
                 "resetPM"       : [None, None],
-#                "save"          : [self.ui.save_6, ACTIVE_WIDGET],
-#                "version"       : [self.ui.version_6, None],   
 
                 "samples"       : [self.ui.SANSamples1, "SANSamples"],
                 "samplesRB"     : [self.ui.SANSamplesRB1, "SANSamples"],
-#                "loops"         : [None, None],
-#                "triggercounts" : [None, None],
                 "singleLoop"    : [None, None],
                 "timestamp"     : [self.ui.SAtimestamp1, "SATimestamp"],
                 "timestampRB"   : [self.ui.SAtimestampRB1, "SATimestamp"],
-#                "version"       : [None, None],
-#                "ontrigger"     : [None, None],
-#                "peakA"         : [None, None],
-#                "peakB"         : [None, None],
-#                "peakC"         : [None, None],
-#                "peakD"         : [None, None],
-#                "raw"           : [None, None],
-#                "decimation"    : [None, None],
-#                "decimationRB"    : [None, None],
-#                "temperaturestamp"   : [None, None],
                 "timesleep"     : [self.ui.SAtimesleep1, "SASleep"],
                 "timesleepRB"   : [self.ui.SAtimesleepRB1, "SASleep"],
-#                "firstcount"    : [None, None],
-#                "lastcount"     : [None, None],
                 "filename"      : [None, "SAFileName"],
-                "savefunc"      : [None, None]
+                "savefunc"      : [None, None],
+                "enabled"       : [None, "SAEnabled"],
                 }
                 self.SATab1 = LiberaTab(SATab1Widgets)
 
@@ -402,29 +344,15 @@ class MainWindow(QtGui.QMainWindow):
                 "resetPM"       : [None, None],
                 "singleLoop"    : [None, None],
                 "timestamp"     : [None, None],
-#                "version"       : [None, None],
-#                "timestamp"     : [self.ui.timestamp_7, "SATimestamp"],
                 "samples"       : [self.ui.SANSamples2, "SANSamples"],
                 "samplesRB"     : [self.ui.SANSamplesRB2, "SANSamples"],
-#                "loops"         : [None, None],
-#                "triggercounts" : [None, None],
-#                "ontrigger"     : [None, None],
-#                "peakA"         : [None, None],
-#                "peakB"         : [None, None],
-#                "peakC"         : [None, None],
-#                "peakD"         : [None, None],
-#                "raw"           : [None, None],
-#                "decimation"    : [None, None],
-#                "decimationRB"  : [None, None],
-#                "temperaturestamp"   : [None, None],
                 "timestamp"     : [self.ui.SAtimestamp2, "SATimestamp"],
                 "timestampRB"   : [self.ui.SAtimestampRB2, "SATimestamp"],
                 "timesleep"     : [self.ui.SAtimesleep2, "SASleep"],
                 "timesleepRB"   : [self.ui.SAtimesleepRB2, "SASleep"],
-#                "firstcount"    : [None, None],
-#                "lastcount"     : [None, None],
                 "filename"      : [None, "SAFileName"],
-                "savefunc"      : [None, None]
+                "savefunc"      : [None, None],
+                "enabled"       : [None, "SAEnabled"],
                 }
                 self.SATab2 = LiberaTab(SATab2Widgets)
 
@@ -441,23 +369,6 @@ class MainWindow(QtGui.QMainWindow):
                 "samples"       : [self.ui.FANSamples1, "FANSamples"],
                 "samplesRB"     : [self.ui.FANSamplesRB1, "FANSamples"],
                 "singleLoop"    : [None, None],
-#                "loops"         : [None, None],
-#                "triggercounts" : [None, None],
-#                "resetPM"       : [None, None],
-#                "ontrigger"     : [None, None],
-#                "peakA"         : [None, None],
-#                "peakB"         : [None, None],
-#                "peakC"         : [None, None],
-#                "peakD"         : [None, None],
-#                "raw"           : [None, None],
-#                "decimation"    : [None, None],
-#                "decimationRB"  : [None, None],
-#                "temperaturestamp"   : [None, None],
-#                "timesleep"     : [None, None],
-#                "firstcount"    : [self.ui.firstcount_8, None],
-#                "lastcount"     : [self.ui.lastcount_8, None],
-#                "filename"      : [None, "FAFileName"],
-#                "savefunc"      : [None, "FASave"]
                 }
                 self.FATab1 = LiberaTab(FATab1Widgets)
 
@@ -473,23 +384,6 @@ class MainWindow(QtGui.QMainWindow):
                 "samples"       : [self.ui.FANSamples2, "FANSamples"],
                 "samplesRB"     : [self.ui.FANSamplesRB2, "FANSamples"],
                 "singleLoop"    : [None, None],
-#                "loops"         : [None, None],
-#                "triggercounts" : [None, None],
-#                "resetPM"       : [None, None],
-#                "ontrigger"     : [None, None],
-#                "peakA"         : [None, None],
-#                "peakB"         : [None, None],
-#                "peakC"         : [None, None],
-#                "peakD"         : [None, None],
-#                "raw"           : [None, None],
-#                "decimation"    : [None, None],
-#                "decimationRB"  : [None, None],
-#                "temperaturestamp"   : [None, None],
-#                "timesleep"     : [None, None],
-#                "firstcount"    : [None, None],
-#                "lastcount"     : [None, None],
-#                "filename"      : [None, "FAFileName"],
-#                "savefunc"      : [None, "FASave"]
                 }
                 self.FATab2 = LiberaTab(FATab2Widgets)
 
@@ -499,78 +393,24 @@ class MainWindow(QtGui.QMainWindow):
             which we'll get the underlying device server) or a string (meaning we want to
             connect directly to the python device server)"""
 
-            db = PyTango.Database()
-            libnumCppRelation = db.get_property("BPM",["DeviceParameters"])
-            cppPyRelation     = db.get_class_property("LiberaAcquisator",["CppDS"])
-
-            def getCppFromNumber(liberaNumber):
-                """This function will get the cpp ds name from the libera number"""
-                dsCppName = ""
-                for relation in libnumCppRelation["DeviceParameters"]:
-                    tokens = relation.split(":")
-                    if str("Libera%03d" % liberaNumber).lower() == (tokens[2]).lower():
-                        dsCppName = tokens[0]
-                        break
-                return dsCppName
-
-            def getCppFromPy(pyDsName):
-                """This function will get the cpp ds name from the py ds name"""
-                cppPyName = ""
-                for relation in cppPyRelation["CppDS"]:
-                    tokens = relation.split("@")
-                    if tokens[0].lower().endswith(pyDsName.lower()):
-                        cppPyName = tokens[1]
-                        break
-                return cppPyName
-
-
-            def getPyFromCpp(cppDsName):
-                """This function will get the py ds name from the cpp ds name"""
-                dsPyName = ""
-                for relation in cppPyRelation["CppDS"]:
-                    tokens = relation.split("@")
-                    if tokens[1].lower().endswith(cppDsName.lower()):
-                        dsPyName = tokens[0]
-                        break
-                return dsPyName
-
-            #Function start
             dsCppNameBack = self.dsCppName
             dsPyNameBack = self.dsPyName
             self.dsCppName = ""
             self.dsPyName  = ""
-#            if type(numberOrDS) == int:
-#                numberSpecified = True
-#            elif type(numberOrDS) == str:
-#                numberSpecified = False
-#            else:
-#                raise ValueError, "Expected int or str parameter. Got: " + repr(type(numberOrDS))
 
             try:
-                # For each Libera there are two ds. We have to get this information from tango db
-                # We have three important entities:
-                # - libera number (which will also be used as libera ip hostname)
-                # - python ds that corresponds to this libera number
-                # - cpp ds that is used by the python ds
-                # The relationship between them is stored in a quite messy way in the database. We have
-                # libera number <-> cpp ds relationship in "DeviceParameters" property of "BPM" db
-                # property. On the other hand, we have cpp <--> python relationship in "CppDS" property
-                # of class property of LiberaAcquisator class
-
+                # Connect to the Device Server and check its state, keep backup of the previous dp; in
+                # case of any problem, we'll keep connected to it.
                 self.dsPyName = dev_name
-                self.dsCppName = getCppFromPy(self.dsPyName)
                 windowTitle = self.dsPyName
+                dpBack = self.dp
+                self.dp = PyTango.DeviceProxy(self.dsPyName)
+                self.dsCppName = self.dp.read_attribute("Device").value
                 if self.dsCppName == "":
                     QtGui.QMessageBox.warning(self,
                         self.tr("Device server not located"),
                         self.tr("Unable to find out which underlying cpp device server is serving this python device server. Please, check \"CppDS\" class property on tango database for \"LiberaAcquisator\" class for " + "\"" + self.dsPyName + "\""))
                     return False
-
-
-                # Connect to the Device Server and check its state, keep backup of the previous dp; in
-                # case of any problem, we'll keep connected to it.
-                dpBack = self.dp
-                self.dp = PyTango.DeviceProxy(self.dsPyName)
                 if (self.dp.state() != PyTango.DevState.ON):
                     a = QtGui.QMessageBox.question(self, 
                             self.tr("Device server failed"),
@@ -596,16 +436,15 @@ class MainWindow(QtGui.QMainWindow):
                 self.log.reset(self.dsCppName)
 
                 # Connect tango values for each tab
-                print 80*"*", self.dsPyName
-                self.ADCTab.connectLibera(self.dsPyName)
-                self.DDTab1.connectLibera(self.dsPyName)
-                self.DDTab2.connectLibera(self.dsPyName)
-                self.PMTab1.connectLibera(self.dsPyName)
-                self.PMTab2.connectLibera(self.dsPyName)
-                self.SATab1.connectLibera(self.dsPyName)
-                self.SATab2.connectLibera(self.dsPyName)
-                self.FATab1.connectLibera(self.dsPyName)
-                self.FATab2.connectLibera(self.dsPyName)
+                self.ADCTab.connectLibera(self.dsPyName, self.dsCppName)
+                self.DDTab1.connectLibera(self.dsPyName, self.dsCppName)
+                self.DDTab2.connectLibera(self.dsPyName, self.dsCppName)
+                self.PMTab1.connectLibera(self.dsPyName, self.dsCppName)
+                self.PMTab2.connectLibera(self.dsPyName, self.dsCppName)
+                self.SATab1.connectLibera(self.dsPyName, self.dsCppName)
+                self.SATab2.connectLibera(self.dsPyName, self.dsCppName)
+                self.FATab1.connectLibera(self.dsPyName, self.dsCppName)
+                self.FATab2.connectLibera(self.dsPyName, self.dsCppName)
 
                 # Set main window's title
                 self.setWindowTitle(windowTitle)
@@ -1226,15 +1065,6 @@ class LiberaStatusBar(QtGui.QWidget):
 
         except Exception, e:
                 raise
-
-    ## The minimum size of the widget (a limit for the user)
-    #def minimumSizeHint(self):
-        #return QtCore.QSize(950, 40)
-
-    ## The default size of the widget
-    #def sizeHint(self):
-        #return QtCore.QSize(950, 40)
-
 
 
 class SetTime(QtGui.QDialog):
