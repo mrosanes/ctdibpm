@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>1400</width>
-    <height>800</height>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -692,7 +692,7 @@
         <item row="0" column="1" >
          <layout class="QVBoxLayout" >
           <item>
-           <widget class="QGroupBox" name="groupBox_6" >
+           <widget class="QGroupBox" name="groupBoxADC" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
               <horstretch>0</horstretch>
@@ -994,7 +994,7 @@
         <item rowspan="2" row="0" column="1" >
          <layout class="QVBoxLayout" >
           <item>
-           <widget class="QGroupBox" name="groupBox_8" >
+           <widget class="QGroupBox" name="groupBoxDD1" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
               <horstretch>0</horstretch>
@@ -1234,7 +1234,7 @@
         <item rowspan="2" row="0" column="1" >
          <layout class="QGridLayout" >
           <item row="0" column="0" >
-           <widget class="QGroupBox" name="groupBox_10" >
+           <widget class="QGroupBox" name="groupBoxDD2" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
               <horstretch>0</horstretch>
@@ -1417,6 +1417,21 @@
               <widget class="TauValueLineEdit" name="DDloops2" />
              </item>
             </layout>
+            <zorder>label_38</zorder>
+            <zorder>label_41</zorder>
+            <zorder>label_44</zorder>
+            <zorder>DDTriggers2</zorder>
+            <zorder>label_40</zorder>
+            <zorder>DDcheckSingle2</zorder>
+            <zorder>label_45</zorder>
+            <zorder>DDstart2</zorder>
+            <zorder>DDstop2</zorder>
+            <zorder>DDNSamples2</zorder>
+            <zorder>DDNSamplesRB2</zorder>
+            <zorder>DDloopsRB2</zorder>
+            <zorder>frame2</zorder>
+            <zorder>DDloops2</zorder>
+            <zorder>verticalSpacer</zorder>
            </widget>
           </item>
           <item row="1" column="0" >
@@ -1464,7 +1479,7 @@
         <item rowspan="2" row="0" column="1" >
          <layout class="QGridLayout" >
           <item row="0" column="0" >
-           <widget class="QGroupBox" name="groupBox_12" >
+           <widget class="QGroupBox" name="groupBoxPM1" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
               <horstretch>0</horstretch>
@@ -1576,7 +1591,7 @@
            <number>4</number>
           </property>
           <item>
-           <widget class="QGroupBox" name="groupBox_14" >
+           <widget class="QGroupBox" name="groupBoxPM2" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
               <horstretch>0</horstretch>
@@ -1713,7 +1728,7 @@
         <item rowspan="2" row="0" column="1" >
          <layout class="QGridLayout" name="gridLayout_5" >
           <item row="0" column="0" >
-           <widget class="QGroupBox" name="groupBox_16" >
+           <widget class="QGroupBox" name="groupBoxSA1" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
               <horstretch>0</horstretch>
@@ -1952,7 +1967,7 @@
            </spacer>
           </item>
           <item row="0" column="0" >
-           <widget class="QGroupBox" name="groupBox_18" >
+           <widget class="QGroupBox" name="groupBoxSA2" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
               <horstretch>0</horstretch>
@@ -2153,7 +2168,7 @@
         <item rowspan="2" row="0" column="1" >
          <layout class="QVBoxLayout" >
           <item>
-           <widget class="QGroupBox" name="groupBox_20" >
+           <widget class="QGroupBox" name="groupBoxFA1" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
               <horstretch>0</horstretch>
@@ -2322,7 +2337,7 @@
         <item rowspan="2" row="0" column="1" >
          <layout class="QVBoxLayout" >
           <item>
-           <widget class="QGroupBox" name="groupBox_22" >
+           <widget class="QGroupBox" name="groupBoxFA2" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
               <horstretch>0</horstretch>

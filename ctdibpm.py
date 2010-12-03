@@ -81,6 +81,7 @@ GAIN_FILENAME = DEFAULT_PATH + "gain.conf"
 
 DOC_URL = "http://www.cells.es/Intranet/Divisions/Computing/Controls/Help/DI/BPM/"
 
+
 class MainWindow(QtGui.QMainWindow):
         def __init__(self, parent=None,liberaDeviceName=None):
                 QtGui.QWidget.__init__(self, parent)
@@ -196,8 +197,15 @@ class MainWindow(QtGui.QMainWindow):
 
                 self.setTab()
 
-                # show big
+                # show maximized
                 self.showMaximized()
+
+                # hide duplicated control groupboxes (asked by user, but will
+                # probably change his mind, so just hide them, don't remove)
+                self.ui.groupBoxDD2.hide()
+                self.ui.groupBoxPM2.hide()
+                self.ui.groupBoxSA2.hide()
+                self.ui.groupBoxFA2.hide()
 
                 #Connect to libera number or libera device (if any specified)
                 if liberaDeviceName:
@@ -833,6 +841,12 @@ class MainWindow(QtGui.QMainWindow):
                         print "Libera Init No"
 
         def actionOpen(self):
+                # Check we're connectd to something
+                if (self.dp is None):
+                    QtGui.QMessageBox.warning(self,self.tr("Save environment parameters"),
+                                                   self.tr("No connection to any libera"))
+                    return
+                #choose file
                 fileName = QtGui.QFileDialog.getOpenFileName(self,
                     self.tr("Open Environmental Parameters"), DEFAULT_PATH,
                     self.tr("DAT (*.dat)"))
@@ -883,8 +897,9 @@ class MainWindow(QtGui.QMainWindow):
                 self.ui.EPofftuneunits.setText(str(column1[20]))
                 self.ui.EPpmoffset.setText(str(column1[21]))
                 self.ui.EPtrigdelay.setText(str(column1[22]))
-                self.ui.EPmaflength.setText(str(column1[23]))
-                self.ui.EPmafdelay.setText(str(column1[24]))
+                if self.hasMAFSupport:
+                    self.ui.EPmaflength.setText(str(column1[23]))
+                    self.ui.EPmafdelay.setText(str(column1[24]))
                 self.EPActivateWarning()
 
         def openFile(self, fileName):
@@ -903,6 +918,12 @@ class MainWindow(QtGui.QMainWindow):
 
 
         def actionSave(self):
+                # Check we're connectd to something
+                if (self.dp is None):
+                    QtGui.QMessageBox.warning(self,self.tr("Save environment parameters"),
+                                                   self.tr("No connection to any libera"))
+                    return
+
                 # Get file name from Save dialog
                 fileName = QtGui.QFileDialog.getSaveFileName(self,
                     self.tr("Save Environmental Parameters"), DEFAULT_PATH + "EP.dat",
@@ -932,7 +953,7 @@ class MainWindow(QtGui.QMainWindow):
                 outf << "kx             \t"  << self.ui.EPkx.text()                     << "\n"
                 outf << "kz             \t"  << self.ui.EPkz.text()                     << "\n"
                 outf << "switches       \t"  << self.getSwitches()                      << "\n"
-                outf << "gain           \t"  << self.ui.EPgain.text()                  << "\n"
+                outf << "gain           \t"  << self.ui.EPgain.text()                   << "\n"
                 outf << "agc            \t"  << self.ui.EPagc.isChecked()               << "\n" 
                 outf << "dsc            \t"  << self.ui.EPdsc.currentIndex()            << "\n"
                 outf << "mode           \t"  << self.ui.EPmode.currentIndex()           << "\n"
@@ -948,9 +969,15 @@ class MainWindow(QtGui.QMainWindow):
                 outf << "offtunemode    \t"  << self.ui.EPofftunemode.currentIndex()    << "\n"
                 outf << "offtuneunits   \t"  << self.ui.EPofftuneunits.text()           << "\n"
                 outf << "pmoffset       \t"  << self.ui.EPpmoffset.text()               << "\n"
-                outf << "trigdelay      \t"  << self.ui.EPtrigdelay()                   << "\n"
-                outf << "maflength      \t"  << self.ui.EPmaflength()                   << "\n"
-                outf << "mafdelay       \t"  << self.ui.EPmafdelay()                    << "\n"
+                outf << "trigdelay      \t"  << self.ui.EPtrigdelay.text()              << "\n"
+                if self.hasMAFSupport:
+                    maflength = self.ui.EPmaflength.text()
+                    mafdelay =  self.ui.EPmafdelay.text()
+                else:
+                    maflength = None
+                    mafdelay =  None
+                outf << "maflength      \t"  << str(maflength)                          << "\n"
+                outf << "mafdelay       \t"  << str(mafdelay)                           << "\n"
 
                 QtGui.QApplication.restoreOverrideCursor()
 
@@ -1167,6 +1194,7 @@ class SetTime(QtGui.QDialog):
 
     def showEvent(self, event):
         self.GetGMtime()
+
 
 class SyncTime(QtGui.QDialog):
     def __init__(self, parent):
@@ -1568,7 +1596,6 @@ class Log(QtGui.QWidget):
         dialog = Qt.QPrintDialog(printer)
         if dialog.exec_():
             self.ui.textEdit.print_(printer)
-
 
 
 def main():
