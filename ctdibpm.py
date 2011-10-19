@@ -370,7 +370,7 @@ class MainWindow(QtGui.QMainWindow):
                 "plot1"         : [self.ui.FAplotA1, "XPosFA","ZPosFA"],
                 "plot2"         : [self.ui.FAplotA2, "VaFA","VbFA","VcFA","VdFA"],
                 "start"         : [self.ui.FAstart1, "FAAcquire"], 
-                "stop"     	    : [None, None],
+                "stop"          : [None, None],
                 "save"          : [self.ui.FAsave1, ACTIVE_WIDGET],
                 "resetPM"       : [None, None],
                 "timestamp"     : [None, None],
@@ -604,13 +604,16 @@ class MainWindow(QtGui.QMainWindow):
                 QtGui.QMessageBox.warning(self,self.tr("Set environment parameters"),
                                                self.tr("No connection to any libera"))
                 return
-            answer = QtGui.QMessageBox.question(self,
-                    self.tr("Set environment parameters"),
-                    self.tr("This will stop any running acquisition. It will also reinitialize underlying"\
-                            "C++ device server.\nAre you sure you want to continue?"),
-                    QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
-            if (answer == QtGui.QMessageBox.No):
-                return False
+
+            #This check is no longer done
+            #answer = QtGui.QMessageBox.question(self,
+                    #self.tr("Set environment parameters"),
+                    #self.tr("This will stop any running acquisition. It will also reinitialize underlying"\
+                            #"C++ device server.\nAre you sure you want to continue?"),
+                    #QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+            #if (answer == QtGui.QMessageBox.No):
+                #return False
+
             try:
                 attrs_name_sw = [ "Xoffset","Zoffset","Qoffset","Kx", "Kz","InterlockMode","GainLimit","Xhigh","Xlow","Zhigh","Zlow","OverflowLimit","OverflowDuration" ]
                 attrs_name_hw = ["Switches","AGCEnabled","Gain","DSCMode","ExternalSwitching", "SwitchingDelay", "CompensateTune","OffsetTune", "PMOffset", "ExternalTriggerDelay"]
@@ -662,8 +665,9 @@ class MainWindow(QtGui.QMainWindow):
                         self.ui.EPmafdelay.displayText()
                         ])
 
-                self.dp.command_inout("ADCStop")
-                self.dp.command_inout("DDStop")
+                #Now user decided that this is no longer necessary (until he changes his mind again)
+                #self.dp.command_inout("ADCStop")
+                #self.dp.command_inout("DDStop")
 
                 #read attributes (will be reused to write_attributes)
                 attrs_value_objects_sw = self.dp.read_attributes(attrs_name_sw)
