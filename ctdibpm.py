@@ -35,6 +35,8 @@ from ui_statusbar import Ui_StatusBar
 from ui_gainscheme import Ui_GainScheme
 from ui_about import Ui_About
 from ui_log import Ui_Log
+from ui_environment import Ui_Environment
+from ui_postmortemconfiguration import Ui_PostMortemConfiguration
 from liberatab import *
 from screenshot import Screenshot
 
@@ -135,40 +137,6 @@ class MainWindow(QtGui.QMainWindow):
                 QtCore.QObject.connect(self.ui.actionHelp, QtCore.SIGNAL("triggered()"), self.actionHelp)
                 QtCore.QObject.connect(self.ui.actionAbout, QtCore.SIGNAL("triggered()"), self.actionAbout)
 
-                # 'EP' Buttons
-                QtCore.QObject.connect(self.ui.EPget    , QtCore.SIGNAL("clicked()"), self.EPget)
-                QtCore.QObject.connect(self.ui.EPset    , QtCore.SIGNAL("clicked()"), self.EPset)
-                QtCore.QObject.connect(self.ui.EPsettime, QtCore.SIGNAL("clicked()"), self.EPsettime)
-                QtCore.QObject.connect(self.ui.EPagc    , QtCore.SIGNAL("clicked()"), self.EPsetgain)
-
-                # EP Get and Set buttons will become red when any EP value changed.
-                QtCore.QObject.connect(self.ui.EPzhigh, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPxoffset, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPzoffset, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPqoffset, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPkx, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPkz, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPswitches, QtCore.SIGNAL("activated(const int)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPdsc, QtCore.SIGNAL("activated(const int)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPgain, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPagc, QtCore.SIGNAL("clicked()"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPmode, QtCore.SIGNAL("activated(const int)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPgainlimit, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPxhigh, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPxlow, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPzhigh, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPzlow, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPoverflim, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPoverfdur, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPclocksource, QtCore.SIGNAL("activated(const int)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPswitchdelay, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPofftunemode, QtCore.SIGNAL("activated(const int)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPofftuneunits, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPpmoffset, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPtrigdelay, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPmaflength, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-                QtCore.QObject.connect(self.ui.EPmafdelay, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
-
                 #Keep DD single acquisition check boxes synchronized
                 QtCore.QObject.connect(self.ui.DDcheckSingle1, QtCore.SIGNAL("toggled(bool)"), self.ui.DDcheckSingle2, QtCore.SLOT("setChecked(bool)") )
                 QtCore.QObject.connect(self.ui.DDcheckSingle2, QtCore.SIGNAL("toggled(bool)"), self.ui.DDcheckSingle1, QtCore.SLOT("setChecked(bool)") )
@@ -184,9 +152,6 @@ class MainWindow(QtGui.QMainWindow):
                 # Add log tab
                 self.log = Log(self)
                 self.ui.tabWidget.insertTab(self.ui.tabWidget.count(),self.log,self.tr("Log"))
-
-                # 'EP' Buttons
-                QtCore.QObject.connect(self.ui.EPget, QtCore.SIGNAL("clicked()"), self.EPget)
 
                 # Initialize time window
                 self.settime = SetTime(self)
@@ -206,6 +171,15 @@ class MainWindow(QtGui.QMainWindow):
                 self.ui.groupBoxPM2.hide()
                 self.ui.groupBoxSA2.hide()
                 self.ui.groupBoxFA2.hide()
+
+                #configure environment and post mortem configuration dock widgets
+                self.setDockNestingEnabled(True)
+
+                self.environment = Environment(self) 
+                self.addDockWidget(QtCore.Qt.BottomDockWidgetArea, self.environment)
+
+                self.postMortemConfiguration = PostMortemConfiguration(self) 
+                self.tabifyDockWidget(self.environment, self.postMortemConfiguration)
 
                 #Connect to libera number or libera device (if any specified)
                 if liberaDeviceName:
@@ -431,8 +405,9 @@ class MainWindow(QtGui.QMainWindow):
                         self.dp = dpBack
                         return False
 
-                # Connect Tango Values for Environmental Parameters (Warning! This may raise exception)
-                self.EPget()
+                # Connect Tango Values for Environment Parameters and Post Mortem configuration (Warning! This may raise exception)
+                self.environment.EPget()
+                self.postMortemConfiguration.PMget()
 
                 # Connect hardware values for StatusBar
                 self.LiberaStatusBar.connectLibera(self.dsCppName, self.dsPyName)
@@ -463,289 +438,6 @@ class MainWindow(QtGui.QMainWindow):
                 self.dsPyName = dsPyNameBack
                 self.dp = dpBack
                 return False
-
-        def EPsetgain(self):
-                if(self.ui.EPagc.isChecked()):
-                        self.ui.EPgain.setEnabled(False)
-                else:
-                        self.ui.EPgain.setEnabled(True)
-
-        def EPcheckIncompatibility(self):
-                # FB: storage or boost?
-                if(float(self.ui.EPoverfdur.text()) > OVERF_DUR_MAX):
-                        a = QtGui.QMessageBox.warning(self, 
-                                self.tr("Incompatible setting"),
-                                self.tr("Interlock OverF Dur is greater than 1050.\nCheck it!"))
-                        if(a == QtGui.QMessageBox.Ok):
-                                return
-
-                if(self.ui.EPdsc.currentIndex() == DSC_AUTO) and (self.ui.EPswitches.currentIndex() != SWITCHES_AUTO):
-                        a = QtGui.QMessageBox.question(self, 
-                                self.tr("Incompatible setting"),
-                                self.tr("DSC is set to AUTO\nSwitch has to be set to AUTO"),
-                                QtGui.QMessageBox.Yes,
-                                QtGui.QMessageBox.No)
-                        if(a == QtGui.QMessageBox.Yes):
-                                self.ui.EPswitches.setCurrentIndex(SWITCHES_AUTO)
-
-                if(self.ui.EPswitches.currentIndex() == SWITCHES_DIRECT) and (self.ui.EPdsc.currentIndex() != DSC_OFF):
-                        a = QtGui.QMessageBox.question(self, 
-                                self.tr("Incompatible setting"),
-                                self.tr("Switches is set to DIRECT\nDSC has to be set to OFF"),
-                                QtGui.QMessageBox.Yes,
-                                QtGui.QMessageBox.No)
-                        if(a == QtGui.QMessageBox.Yes):
-                                self.ui.EPdsc.setCurrentIndex(DSC_OFF)
-
-        def setSwitches(self, v):
-                if v == SWITCH_AUTO:
-                        self.ui.EPswitches.setCurrentIndex(1)
-                else:
-                        self.ui.EPswitches.setCurrentIndex(0)
-
-        def getSwitches(self):
-                i = self.ui.EPswitches.currentIndex()
-                if i==1:
-                        return SWITCH_AUTO
-                else:
-                        return SWITCH_DIRECT
-
-        def setInterlockMode(self, v):
-                if v == 0:
-                        self.ui.EPmode.setCurrentIndex(0)
-                elif v == 1:
-                        self.ui.EPmode.setCurrentIndex(1)
-                elif v == 3:
-                        self.ui.EPmode.setCurrentIndex(2)
-                else:
-                        self.ui.EPmode.setCurrentIndex(0)
-
-        def getInterlockMode(self):
-                i = self.ui.EPmode.currentIndex()
-                if i==0:
-                        return 0
-                elif i==1:
-                        return 1
-                elif i==2:
-                        return 3
-                else:
-                        return 0
-
-        def EPget(self):
-            """This function gets environment parameters from the hardware. It calls ParamGet of PyDS,
-            which will get parameters from CppDS from hardware. This may cause EPGet to throw exceptions,
-            so be sure you know how to handle them"""
-            try:
-                    attrs_name = [ "Xoffset","Zoffset", "Qoffset", "Kx", "Kz", "Switches", "Gain",
-                            "AGCEnabled", "DSCMode","InterlockMode", "GainLimit", "Xhigh", "Xlow",
-                            "Zhigh", "Zlow", "OverflowLimit","OverflowDuration","ExternalSwitching",
-                            "SwitchingDelay", "CompensateTune", "OffsetTune", "PMOffset", "ExternalTriggerDelay"]
-                    self.hasMAFSupport = self.dp.read_attribute("HasMAFSupport").value
-                    if self.hasMAFSupport:
-                        attrs_name.extend(["MAFLength", "MAFDelay"])
-                        self.ui.EPmaflength.setEnabled(True)
-                        self.ui.EPmafdelay.setEnabled(True)
-                    else:
-                        self.ui.EPmaflength.clear()
-                        self.ui.EPmaflength.setEnabled(False)
-                        self.ui.EPmafdelay.clear()
-                        self.ui.EPmafdelay.setEnabled(False)
-
-                    self.dp.command_inout("ParamGet")
-                    attrs_value_objects = self.dp.read_attributes(attrs_name)
-                    attrs_values = [ av.value for av in attrs_value_objects ]
-                    pairs = dict(zip(attrs_name, attrs_values))
-                    self.ui.EPxoffset.setText(str(pairs["Xoffset"]))
-                    self.ui.EPzoffset.setText(str(pairs["Zoffset"]))
-                    self.ui.EPqoffset.setText(str(pairs["Qoffset"]))
-                    self.ui.EPkx.setText(str(pairs["Kx"]))
-                    self.ui.EPkz.setText(str(pairs["Kz"]))
-                    self.setSwitches(int(pairs["Switches"]))
-                    if int(pairs["AGCEnabled"]):
-                        self.ui.EPagc.setCheckState(Qt.Qt.Checked)
-                    else:
-                        self.ui.EPagc.setCheckState(Qt.Qt.Unchecked)
-                    self.ui.EPgain.setText(str(pairs["Gain"]))
-                    self.EPsetgain() #enable/disable gain depending on agc
-                    self.ui.EPdsc.setCurrentIndex(int(pairs["DSCMode"]))
-                    self.ui.EPclocksource.setCurrentIndex(int(pairs["ExternalSwitching"]))
-                    self.ui.EPclocksource.setEnabled(True)
-                    self.ui.EPswitchdelay.setText(str(pairs["SwitchingDelay"]))
-                    self.ui.EPswitchdelay.setEnabled(True)
-                    self.ui.EPofftunemode.setCurrentIndex(int(pairs["CompensateTune"]))
-                    self.ui.EPofftunemode.setEnabled(True)
-                    self.ui.EPofftuneunits.setText(str(pairs["OffsetTune"]))
-                    self.ui.EPofftuneunits.setEnabled(True)
-                    self.ui.EPpmoffset.setText(str(pairs["PMOffset"]))
-                    self.ui.EPpmoffset.setEnabled(True)
-                    self.ui.EPtrigdelay.setText(str(pairs["ExternalTriggerDelay"]))
-                    self.ui.EPtrigdelay.setEnabled(True)
-                    if self.hasMAFSupport:
-                        self.ui.EPmaflength.setText(str(pairs["MAFLength"]))
-                        self.ui.EPmaflength.setEnabled(True)
-                        self.ui.EPmafdelay.setText(str(pairs["MAFDelay"]))
-                        self.ui.EPmafdelay.setEnabled(True)
-                    self.setInterlockMode(int(pairs["InterlockMode"]))
-                    self.ui.EPgainlimit.setText(str(pairs["GainLimit"]))
-                    self.ui.EPxhigh.setText(str(pairs["Xhigh"]))
-                    self.ui.EPxlow.setText(str(pairs["Xlow"]))
-                    self.ui.EPzhigh.setText(str(pairs["Zhigh"]))
-                    self.ui.EPzlow.setText(str(pairs["Zlow"]))
-                    self.ui.EPoverflim.setText(str(pairs["OverflowLimit"]))
-                    self.ui.EPoverfdur.setText(str(pairs["OverflowDuration"]))
-
-                    self.EPResetWarning()
-            except PyTango.DevFailed, e:
-                    QtGui.QMessageBox.critical(None, "EPget" , repr(e))
-                    raise
-
-        def EPset(self):
-            if (self.dp == None):
-                QtGui.QMessageBox.warning(self,self.tr("Set environment parameters"),
-                                               self.tr("No connection to any libera"))
-                return
-
-            #This check is no longer done
-            #answer = QtGui.QMessageBox.question(self,
-                    #self.tr("Set environment parameters"),
-                    #self.tr("This will stop any running acquisition. It will also reinitialize underlying"\
-                            #"C++ device server.\nAre you sure you want to continue?"),
-                    #QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
-            #if (answer == QtGui.QMessageBox.No):
-                #return False
-
-            try:
-                attrs_name_sw = [ "Xoffset","Zoffset","Qoffset","Kx", "Kz","InterlockMode","GainLimit","Xhigh","Xlow","Zhigh","Zlow","OverflowLimit","OverflowDuration" ]
-                attrs_name_hw = ["Switches","AGCEnabled","Gain","DSCMode","ExternalSwitching", "SwitchingDelay", "CompensateTune","OffsetTune", "PMOffset", "ExternalTriggerDelay"]
-                if self.hasMAFSupport:
-                    attrs_name_hw.extend(["MAFLength","MAFDelay"])
-
-                write_values_sw = [
-                self.ui.EPxoffset.displayText(),
-                self.ui.EPzoffset.displayText(),
-                self.ui.EPqoffset.displayText(),
-                self.ui.EPkx.displayText(),
-                self.ui.EPkz.displayText(),
-                self.getInterlockMode(),
-                self.ui.EPgainlimit.displayText(),
-                self.ui.EPxhigh.displayText(),
-                self.ui.EPxlow.displayText(),
-                self.ui.EPzhigh.displayText(),
-                self.ui.EPzlow.displayText(),
-                self.ui.EPoverflim.displayText(),
-                self.ui.EPoverfdur.displayText()
-                ]
-
-                write_values_hw = [
-                self.getSwitches(),
-                (self.ui.EPagc.checkState()==Qt.Qt.Checked),
-                self.ui.EPgain.displayText(),
-                self.ui.EPdsc.currentIndex(),
-                ]
-
-                #if requesting to activate AGC, gain must not be set or an error will occur
-                if (self.ui.EPagc.checkState()==Qt.Qt.Checked):
-                    write_values_hw.remove(self.ui.EPgain.displayText())
-                    attrs_name_hw.remove("Gain")
-
-                write_values_hw.extend(
-                    [
-                    bool(self.ui.EPclocksource.currentIndex()),
-                    self.ui.EPswitchdelay.displayText(),
-                    self.ui.EPofftunemode.currentIndex(),
-                    self.ui.EPofftuneunits.displayText(),
-                    self.ui.EPpmoffset.displayText(),
-                    self.ui.EPtrigdelay.displayText()
-                    ])
-
-                if self.hasMAFSupport:
-                    write_values_hw.extend(
-                        [
-                        self.ui.EPmaflength.displayText(),
-                        self.ui.EPmafdelay.displayText()
-                        ])
-
-                #Now user decided that this is no longer necessary (until he changes his mind again)
-                #self.dp.command_inout("ADCStop")
-                #self.dp.command_inout("DDStop")
-
-                #read attributes (will be reused to write_attributes)
-                attrs_value_objects_sw = self.dp.read_attributes(attrs_name_sw)
-                attrs_value_objects_hw = self.dp.read_attributes(attrs_name_hw)
-
-                sw_changed = False #if no changes, nothing will be done
-
-                #---------------------------------------------------------------
-                #first step: set sw attributes
-                #first of all, determine if something changed and prepare 
-                for i in range(len(write_values_sw)):
-                    oldValue = attrs_value_objects_sw[i].value
-                    tipo = type(oldValue)
-                    newValue = tipo(write_values_sw[i])
-                    if oldValue != newValue:
-                        attrs_value_objects_sw[i].value = newValue
-                        sw_changed = True
-
-                if sw_changed:
-                    self.dp.write_attributes([[attrs_name_sw[i],attrs_value_objects_sw[i].value] for i in range(len(attrs_name_sw))])
-                    self.dp.command_inout("ParamSet") #this forces the writing to cpp ds
-
-                #---------------------------------------------------------------
-                #second step: set hw attributes (if we reached here, there were no exception, so OK.
-                for i in range (len(write_values_hw)):
-                    oldAttr = attrs_value_objects_hw[i]
-                    tipo = type(oldAttr.value)
-                    newValue = tipo(write_values_hw[i])
-                    #write attribute only if really changed
-                    if oldAttr.value != newValue:
-                        self.dp.write_attribute(attrs_name_hw[i],newValue)
-
-                #everything seems to have worked correctly, so reset warning
-                self.EPResetWarning()
-
-            except PyTango.DevFailed, e:
-                QtGui.QMessageBox.critical(None, "EPset" , repr(e))
-            finally:
-                    self.EPget()
-            return
-
-        def EPsettime(self):
-                self.settime.connect(self.dp)
-                self.settime.show()
-
-        def EPActivateWarning(self):
-            palette = QtGui.QPalette()
-
-            brush = QtGui.QBrush(QtGui.QColor(255,0,0))
-            brush.setStyle(QtCore.Qt.SolidPattern)
-            palette.setBrush(QtGui.QPalette.Active,QtGui.QPalette.Button,brush)
-
-            brush = QtGui.QBrush(QtGui.QColor(255,0,0))
-            brush.setStyle(QtCore.Qt.SolidPattern)
-            palette.setBrush(QtGui.QPalette.Inactive,QtGui.QPalette.Button,brush)
-
-            brush = QtGui.QBrush(QtGui.QColor(255,0,0))
-            brush.setStyle(QtCore.Qt.SolidPattern)
-            palette.setBrush(QtGui.QPalette.Disabled,QtGui.QPalette.Button,brush)
-            self.ui.EPget.setPalette(palette)
-            self.ui.EPset.setPalette(palette)
-
-        def EPResetWarning(self):
-            palette = QtGui.QPalette()
-
-            brush = QtGui.QBrush(QtGui.QColor(238,238,238))
-            brush.setStyle(QtCore.Qt.SolidPattern)
-            palette.setBrush(QtGui.QPalette.Active,QtGui.QPalette.Button,brush)
-
-            brush = QtGui.QBrush(QtGui.QColor(238,238,238))
-            brush.setStyle(QtCore.Qt.SolidPattern)
-            palette.setBrush(QtGui.QPalette.Inactive,QtGui.QPalette.Button,brush)
-
-            brush = QtGui.QBrush(QtGui.QColor(238,238,238))
-            brush.setStyle(QtCore.Qt.SolidPattern)
-            palette.setBrush(QtGui.QPalette.Disabled,QtGui.QPalette.Button,brush)
-            self.ui.EPget.setPalette(palette)
-            self.ui.EPset.setPalette(palette)
 
         def actionADCTab(self):
                 self.ui.tabWidget.setCurrentIndex(0)
@@ -852,7 +544,7 @@ class MainWindow(QtGui.QMainWindow):
                     return
                 #choose file
                 fileName = QtGui.QFileDialog.getOpenFileName(self,
-                    self.tr("Open Environmental Parameters"), DEFAULT_PATH,
+                    self.tr("Open Environment Parameters"), DEFAULT_PATH,
                     self.tr("DAT (*.dat)"))
                 if fileName.isEmpty():
                     return
@@ -873,38 +565,38 @@ class MainWindow(QtGui.QMainWindow):
                             self.tr("The number of parameters has to be " + repr(numParam)) )
                     return
 
-                # Set data (from File) in the Environmental Parameters Box 
-                self.ui.EPxoffset.setText(str(column1[0]))
-                self.ui.EPzoffset.setText(str(column1[1]))
-                self.ui.EPqoffset.setText(str(column1[2]))
-                self.ui.EPkx.setText(str(column1[3]))
-                self.ui.EPkz.setText(str(column1[4]))
+                # Set data (from File) in the Environment Parameters Box 
+                self.environment.EPxoffset.setText(str(column1[0]))
+                self.environment.EPzoffset.setText(str(column1[1]))
+                self.environment.EPqoffset.setText(str(column1[2]))
+                self.environment.EPkx.setText(str(column1[3]))
+                self.environment.EPkz.setText(str(column1[4]))
                 self.setSwitches(int(column1[5]))
                 self.ui.EPgain.setText(str(column1[6]))
                 if( int(column1[7]) == 1):
-                        self.ui.EPagc.setCheckState(Qt.Qt.Checked)
+                        self.environment.EPagc.setCheckState(Qt.Qt.Checked)
                 else:
                         self.ui.EPagc.setCheckState(Qt.Qt.Unchecked)
-                self.EPsetgain() #disable/enable gain depending on agc
-                self.ui.EPdsc.setCurrentIndex(int(column1[8]))
-                self.ui.EPmode.setCurrentIndex(int(column1[9]))
-                self.ui.EPgainlimit.setText(str(column1[10]))
-                self.ui.EPxhigh.setText(str(column1[11]))
-                self.ui.EPxlow.setText(str(column1[12]))
-                self.ui.EPzhigh.setText(str(column1[13]))
-                self.ui.EPzlow.setText(str(column1[14]))
-                self.ui.EPoverflim.setText(str(column1[15]))
-                self.ui.EPoverfdur.setText(str(column1[16]))
-                self.ui.EPclocksource.setCurrentIndex(int(column1[17]))
-                self.ui.EPswitchdelay.setText(str((column1[18])))
-                self.ui.EPofftunemode.setCurrentIndex(int(column1[19]))
-                self.ui.EPofftuneunits.setText(str(column1[20]))
-                self.ui.EPpmoffset.setText(str(column1[21]))
-                self.ui.EPtrigdelay.setText(str(column1[22]))
+                self.environment.EPsetgain() #disable/enable gain depending on agc
+                self.environment.EPdsc.setCurrentIndex(int(column1[8]))
+                self.environment.EPmode.setCurrentIndex(int(column1[9]))
+                self.environment.EPgainlimit.setText(str(column1[10]))
+                self.environment.EPxhigh.setText(str(column1[11]))
+                self.environment.EPxlow.setText(str(column1[12]))
+                self.environment.EPzhigh.setText(str(column1[13]))
+                self.environment.EPzlow.setText(str(column1[14]))
+                self.environment.EPoverflim.setText(str(column1[15]))
+                self.environment.EPoverfdur.setText(str(column1[16]))
+                self.environment.EPclocksource.setCurrentIndex(int(column1[17]))
+                self.environment.EPswitchdelay.setText(str((column1[18])))
+                self.environment.EPofftunemode.setCurrentIndex(int(column1[19]))
+                self.environment.EPofftuneunits.setText(str(column1[20]))
+                self.environment.EPpmoffset.setText(str(column1[21]))
+                self.environment.EPtrigdelay.setText(str(column1[22]))
                 if self.hasMAFSupport:
-                    self.ui.EPmaflength.setText(str(column1[23]))
-                    self.ui.EPmafdelay.setText(str(column1[24]))
-                self.EPActivateWarning()
+                    self.environment.EPmaflength.setText(str(column1[23]))
+                    self.environment.EPmafdelay.setText(str(column1[24]))
+                self.environment.EPActivateWarning()
 
         def openFile(self, fileName):
                 fileEnv = QtCore.QFile(fileName)
@@ -930,7 +622,7 @@ class MainWindow(QtGui.QMainWindow):
 
                 # Get file name from Save dialog
                 fileName = QtGui.QFileDialog.getSaveFileName(self,
-                    self.tr("Save Environmental Parameters"), DEFAULT_PATH + "EP.dat",
+                    self.tr("Save Environment Parameters"), DEFAULT_PATH + "EP.dat",
                     self.tr("DAT (*.dat)"))
                 if fileName.isEmpty():
                     return False
@@ -950,7 +642,7 @@ class MainWindow(QtGui.QMainWindow):
                 outf = QtCore.QTextStream(confFile)
                 QtGui.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
 
-                # Save (to File) all data shown in the Environmental Parameters Box
+                # Save (to File) all data shown in the Environment Parameters Box
                 outf << "xoffset        \t"  << self.ui.EPxoffset.text()                << "\n"
                 outf << "zoffset        \t"  << self.ui.EPzoffset.text()                << "\n"
                 outf << "qoffset        \t"  << self.ui.EPqoffset.text()                << "\n"
@@ -1042,6 +734,456 @@ class MainWindow(QtGui.QMainWindow):
         def actionQuit(self):
             self.close()
 
+
+class PostMortemConfiguration(QtGui.QDockWidget):
+
+    def __init__(self, parent):
+        QtGui.QWidget.__init__(self, parent)
+        self.ui = Ui_PostMortemConfiguration()
+        self.ui.setupUi(self)
+        self.parent = parent
+
+        # Get/Set Buttons
+        QtCore.QObject.connect(self.ui.buttonPMget    , QtCore.SIGNAL("clicked()"), self.PMget)
+        QtCore.QObject.connect(self.ui.buttonPMset    , QtCore.SIGNAL("clicked()"), self.PMset)
+
+        # EP Get and Set buttons will become red when any EP value changed.
+        QtCore.QObject.connect(self.ui.comboPMmode, QtCore.SIGNAL("activated(const int)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.PMxhigh, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.PMxlow, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.PMzhigh, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.PMzlow, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.PMoverflim, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.PMoverfdur, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+
+    def PMget(self):
+        try:
+            attrs_names = ["PMMode", "PMXHigh", "PMXLow", "PMZHigh", "PMZLow", "PMOverflowLimit","PMOverflowDuration"]
+
+            attrs_value_objects = self.parent.dp.read_attributes(attrs_names)
+            attrs_values = [ av.value for av in attrs_value_objects ]
+            pairs = dict(zip(attrs_names, attrs_values))
+
+            self.ui.comboPMmode.setCurrentIndex(int(pairs["PMMode"]))
+            self.ui.PMxhigh.setText(str(pairs["PMXHigh"]))
+            self.ui.PMxlow.setText(str(pairs["PMXLow"]))
+            self.ui.PMzhigh.setText(str(pairs["PMZHigh"]))
+            self.ui.PMzlow.setText(str(pairs["PMZLow"]))
+            self.ui.PMoverflim.setText(str(pairs["PMOverflowLimit"]))
+            self.ui.PMoverfdur.setText(str(pairs["PMOverflowDuration"]))
+
+            self.EPResetWarning()
+        except PyTango.DevFailed, e:
+            QtGui.QMessageBox.critical(None, "PMget" , repr(e))
+            raise
+
+    def PMset(self):
+        if (self.parent.dp == None):
+            QtGui.QMessageBox.warning(self,self.tr("Set Post Mortem configuration"),
+                                           self.tr("No connection to any libera"))
+            return
+
+        print 80*"*", self.ui.PMxhigh.text().toFloat()
+        print 80*"*", self.ui.PMoverfdur.text().toInt()
+
+        try:
+            attrs_names = ["PMMode", "PMXHigh", "PMXLow", "PMZHigh", "PMZLow", "PMOverflowLimit","PMOverflowDuration"]
+
+            write_values = [
+                (self.ui.comboPMmode.currentIndex(), True),
+                self.ui.PMxhigh.text().toFloat(),
+                self.ui.PMxlow.text().toFloat(),
+                self.ui.PMzhigh.text().toFloat(),
+                self.ui.PMzlow.text().toFloat(),
+                self.ui.PMoverflim.text().toInt(),
+                self.ui.PMoverfdur.text().toInt(),
+            ]
+
+            for idx, pair in enumerate(write_values):
+                value, success = pair
+                print success, value, attrs_names[idx]
+                if not success: 
+                    QtGui.QMessageBox.critical(None, "PMset" , "Invalid %s" % attrs_names[idx])
+                    return
+
+            write_values = [item[0] for item in write_values]
+
+            print attrs_names
+            print write_values
+
+            #self.parent.dp.write_attributes([[attrs_names[i],write_values[i]] for i in range(len(attrs_names))])
+            for attr_name, attr_value in [[attrs_names[i],write_values[i]] for i in range(len(attrs_names))]:
+                print "writing", attr_name, attr_value
+                self.parent.dp.write_attribute(attr_name, attr_value)
+
+        except PyTango.DevFailed, e:
+            QtGui.QMessageBox.critical(None, "PMset" , repr(e))
+        finally:
+                self.PMget()
+        return
+
+    def EPActivateWarning(self):
+        palette = QtGui.QPalette()
+
+        brush = QtGui.QBrush(QtGui.QColor(255,0,0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active,QtGui.QPalette.Button,brush)
+
+        brush = QtGui.QBrush(QtGui.QColor(255,0,0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive,QtGui.QPalette.Button,brush)
+
+        brush = QtGui.QBrush(QtGui.QColor(255,0,0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled,QtGui.QPalette.Button,brush)
+        self.ui.buttonPMget.setPalette(palette)
+        self.ui.buttonPMset.setPalette(palette)
+
+    def EPResetWarning(self):
+        palette = QtGui.QPalette()
+
+        brush = QtGui.QBrush(QtGui.QColor(238,238,238))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active,QtGui.QPalette.Button,brush)
+
+        brush = QtGui.QBrush(QtGui.QColor(238,238,238))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive,QtGui.QPalette.Button,brush)
+
+        brush = QtGui.QBrush(QtGui.QColor(238,238,238))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled,QtGui.QPalette.Button,brush)
+        self.ui.buttonPMget.setPalette(palette)
+        self.ui.buttonPMset.setPalette(palette)
+
+
+class Environment(QtGui.QDockWidget):
+
+    def __init__(self, parent):
+        QtGui.QWidget.__init__(self, parent)
+        self.ui = Ui_Environment()
+        self.ui.setupUi(self)
+        self.parent = parent
+
+        # 'EP' Buttons
+        QtCore.QObject.connect(self.ui.EPget    , QtCore.SIGNAL("clicked()"), self.EPget)
+        QtCore.QObject.connect(self.ui.EPset    , QtCore.SIGNAL("clicked()"), self.EPset)
+        QtCore.QObject.connect(self.ui.EPsettime, QtCore.SIGNAL("clicked()"), self.EPsettime)
+        QtCore.QObject.connect(self.ui.EPagc    , QtCore.SIGNAL("clicked()"), self.EPsetgain)
+
+        # EP Get and Set buttons will become red when any EP value changed.
+        QtCore.QObject.connect(self.ui.EPzhigh, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPxoffset, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPzoffset, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPqoffset, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPkx, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPkz, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPswitches, QtCore.SIGNAL("activated(const int)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPdsc, QtCore.SIGNAL("activated(const int)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPgain, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPagc, QtCore.SIGNAL("clicked()"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPmode, QtCore.SIGNAL("activated(const int)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPgainlimit, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPxhigh, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPxlow, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPzhigh, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPzlow, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPoverflim, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPoverfdur, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPclocksource, QtCore.SIGNAL("activated(const int)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPswitchdelay, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPofftunemode, QtCore.SIGNAL("activated(const int)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPofftuneunits, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPpmoffset, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPtrigdelay, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPmaflength, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+        QtCore.QObject.connect(self.ui.EPmafdelay, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
+
+        # 'EP' Buttons
+        QtCore.QObject.connect(self.ui.EPget, QtCore.SIGNAL("clicked()"), self.EPget)
+
+    def EPget(self):
+        """This function gets environment parameters from the hardware. It calls ParamGet of PyDS,
+        which will get parameters from CppDS from hardware. This may cause EPGet to throw exceptions,
+        so be sure you know how to handle them"""
+        try:
+                attrs_name = [ "Xoffset","Zoffset", "Qoffset", "Kx", "Kz", "Switches", "Gain",
+                        "AGCEnabled", "DSCMode","InterlockMode", "GainLimit", "Xhigh", "Xlow",
+                        "Zhigh", "Zlow", "OverflowLimit","OverflowDuration","ExternalSwitching",
+                        "SwitchingDelay", "CompensateTune", "OffsetTune", "PMOffset", "ExternalTriggerDelay"]
+                self.hasMAFSupport = self.parent.dp.read_attribute("HasMAFSupport").value
+                if self.hasMAFSupport:
+                    attrs_name.extend(["MAFLength", "MAFDelay"])
+                    self.ui.EPmaflength.setEnabled(True)
+                    self.ui.EPmafdelay.setEnabled(True)
+                else:
+                    self.ui.EPmaflength.clear()
+                    self.ui.EPmaflength.setEnabled(False)
+                    self.ui.EPmafdelay.clear()
+                    self.ui.EPmafdelay.setEnabled(False)
+
+                self.parent.dp.command_inout("ParamGet")
+                attrs_value_objects = self.parent.dp.read_attributes(attrs_name)
+                attrs_values = [ av.value for av in attrs_value_objects ]
+                pairs = dict(zip(attrs_name, attrs_values))
+                self.ui.EPxoffset.setText(str(pairs["Xoffset"]))
+                self.ui.EPzoffset.setText(str(pairs["Zoffset"]))
+                self.ui.EPqoffset.setText(str(pairs["Qoffset"]))
+                self.ui.EPkx.setText(str(pairs["Kx"]))
+                self.ui.EPkz.setText(str(pairs["Kz"]))
+                self.setSwitches(int(pairs["Switches"]))
+                if int(pairs["AGCEnabled"]):
+                    self.ui.EPagc.setCheckState(Qt.Qt.Checked)
+                else:
+                    self.ui.EPagc.setCheckState(Qt.Qt.Unchecked)
+                self.ui.EPgain.setText(str(pairs["Gain"]))
+                self.EPsetgain() #enable/disable gain depending on agc
+                self.ui.EPdsc.setCurrentIndex(int(pairs["DSCMode"]))
+                self.ui.EPclocksource.setCurrentIndex(int(pairs["ExternalSwitching"]))
+                self.ui.EPclocksource.setEnabled(True)
+                self.ui.EPswitchdelay.setText(str(pairs["SwitchingDelay"]))
+                self.ui.EPswitchdelay.setEnabled(True)
+                self.ui.EPofftunemode.setCurrentIndex(int(pairs["CompensateTune"]))
+                self.ui.EPofftunemode.setEnabled(True)
+                self.ui.EPofftuneunits.setText(str(pairs["OffsetTune"]))
+                self.ui.EPofftuneunits.setEnabled(True)
+                self.ui.EPpmoffset.setText(str(pairs["PMOffset"]))
+                self.ui.EPpmoffset.setEnabled(True)
+                self.ui.EPtrigdelay.setText(str(pairs["ExternalTriggerDelay"]))
+                self.ui.EPtrigdelay.setEnabled(True)
+                if self.hasMAFSupport:
+                    self.ui.EPmaflength.setText(str(pairs["MAFLength"]))
+                    self.ui.EPmaflength.setEnabled(True)
+                    self.ui.EPmafdelay.setText(str(pairs["MAFDelay"]))
+                    self.ui.EPmafdelay.setEnabled(True)
+                self.setInterlockMode(int(pairs["InterlockMode"]))
+                self.ui.EPgainlimit.setText(str(pairs["GainLimit"]))
+                self.ui.EPxhigh.setText(str(pairs["Xhigh"]))
+                self.ui.EPxlow.setText(str(pairs["Xlow"]))
+                self.ui.EPzhigh.setText(str(pairs["Zhigh"]))
+                self.ui.EPzlow.setText(str(pairs["Zlow"]))
+                self.ui.EPoverflim.setText(str(pairs["OverflowLimit"]))
+                self.ui.EPoverfdur.setText(str(pairs["OverflowDuration"]))
+
+                self.EPResetWarning()
+        except PyTango.DevFailed, e:
+                QtGui.QMessageBox.critical(None, "EPget" , repr(e))
+                raise
+
+    def EPset(self):
+        if (self.parent.dp == None):
+            QtGui.QMessageBox.warning(self,self.tr("Set environment parameters"),
+                                           self.tr("No connection to any libera"))
+            return
+
+        #This check is no longer done
+        #answer = QtGui.QMessageBox.question(self,
+                #self.tr("Set environment parameters"),
+                #self.tr("This will stop any running acquisition. It will also reinitialize underlying"\
+                        #"C++ device server.\nAre you sure you want to continue?"),
+                #QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+        #if (answer == QtGui.QMessageBox.No):
+            #return False
+
+        try:
+            attrs_name_sw = [ "Xoffset","Zoffset","Qoffset","Kx", "Kz","InterlockMode","GainLimit","Xhigh","Xlow","Zhigh","Zlow","OverflowLimit","OverflowDuration" ]
+            attrs_name_hw = ["Switches","AGCEnabled","Gain","DSCMode","ExternalSwitching", "SwitchingDelay", "CompensateTune","OffsetTune", "PMOffset", "ExternalTriggerDelay"]
+            if self.hasMAFSupport:
+                attrs_name_hw.extend(["MAFLength","MAFDelay"])
+
+            write_values_sw = [
+            self.ui.EPxoffset.displayText(),
+            self.ui.EPzoffset.displayText(),
+            self.ui.EPqoffset.displayText(),
+            self.ui.EPkx.displayText(),
+            self.ui.EPkz.displayText(),
+            self.getInterlockMode(),
+            self.ui.EPgainlimit.displayText(),
+            self.ui.EPxhigh.displayText(),
+            self.ui.EPxlow.displayText(),
+            self.ui.EPzhigh.displayText(),
+            self.ui.EPzlow.displayText(),
+            self.ui.EPoverflim.displayText(),
+            self.ui.EPoverfdur.displayText()
+            ]
+
+            write_values_hw = [
+            self.getSwitches(),
+            (self.ui.EPagc.checkState()==Qt.Qt.Checked),
+            self.ui.EPgain.displayText(),
+            self.ui.EPdsc.currentIndex(),
+            ]
+
+            #if requesting to activate AGC, gain must not be set or an error will occur
+            if (self.ui.EPagc.checkState()==Qt.Qt.Checked):
+                write_values_hw.remove(self.ui.EPgain.displayText())
+                attrs_name_hw.remove("Gain")
+
+            write_values_hw.extend(
+                [
+                bool(self.ui.EPclocksource.currentIndex()),
+                self.ui.EPswitchdelay.displayText(),
+                self.ui.EPofftunemode.currentIndex(),
+                self.ui.EPofftuneunits.displayText(),
+                self.ui.EPpmoffset.displayText(),
+                self.ui.EPtrigdelay.displayText()
+                ])
+
+            if self.hasMAFSupport:
+                write_values_hw.extend(
+                    [
+                    self.ui.EPmaflength.displayText(),
+                    self.ui.EPmafdelay.displayText()
+                    ])
+
+            #Now user decided that this is no longer necessary (until he changes his mind again)
+            #self.dp.command_inout("ADCStop")
+            #self.dp.command_inout("DDStop")
+
+            #read attributes (will be reused to write_attributes)
+            attrs_value_objects_sw = self.parent.dp.read_attributes(attrs_name_sw)
+            attrs_value_objects_hw = self.parent.dp.read_attributes(attrs_name_hw)
+
+            sw_changed = False #if no changes, nothing will be done
+
+            #---------------------------------------------------------------
+            #first step: set sw attributes
+            #first of all, determine if something changed and prepare 
+            for i in range(len(write_values_sw)):
+                oldValue = attrs_value_objects_sw[i].value
+                tipo = type(oldValue)
+                newValue = tipo(write_values_sw[i])
+                if oldValue != newValue:
+                    attrs_value_objects_sw[i].value = newValue
+                    sw_changed = True
+
+            if sw_changed:
+                self.parent.dp.write_attributes([[attrs_name_sw[i],attrs_value_objects_sw[i].value] for i in range(len(attrs_name_sw))])
+                self.parent.dp.command_inout("ParamSet") #this forces the writing to cpp ds
+
+            #---------------------------------------------------------------
+            #second step: set hw attributes (if we reached here, there were no exception, so OK.
+            for i in range (len(write_values_hw)):
+                oldAttr = attrs_value_objects_hw[i]
+                tipo = type(oldAttr.value)
+                newValue = tipo(write_values_hw[i])
+                #write attribute only if really changed
+                if oldAttr.value != newValue:
+                    self.parent.dp.write_attribute(attrs_name_hw[i],newValue)
+
+            #everything seems to have worked correctly, so reset warning
+            self.EPResetWarning()
+
+        except PyTango.DevFailed, e:
+            QtGui.QMessageBox.critical(None, "EPset" , repr(e))
+        finally:
+                self.EPget()
+        return
+
+    def EPsettime(self):
+            self.settime.connect(self.dp)
+            self.settime.show()
+
+    def EPActivateWarning(self):
+        palette = QtGui.QPalette()
+
+        brush = QtGui.QBrush(QtGui.QColor(255,0,0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active,QtGui.QPalette.Button,brush)
+
+        brush = QtGui.QBrush(QtGui.QColor(255,0,0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive,QtGui.QPalette.Button,brush)
+
+        brush = QtGui.QBrush(QtGui.QColor(255,0,0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled,QtGui.QPalette.Button,brush)
+        self.ui.EPget.setPalette(palette)
+        self.ui.EPset.setPalette(palette)
+
+    def EPResetWarning(self):
+        palette = QtGui.QPalette()
+
+        brush = QtGui.QBrush(QtGui.QColor(238,238,238))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active,QtGui.QPalette.Button,brush)
+
+        brush = QtGui.QBrush(QtGui.QColor(238,238,238))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive,QtGui.QPalette.Button,brush)
+
+        brush = QtGui.QBrush(QtGui.QColor(238,238,238))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled,QtGui.QPalette.Button,brush)
+        self.ui.EPget.setPalette(palette)
+        self.ui.EPset.setPalette(palette)
+
+    def EPsetgain(self):
+            if(self.ui.EPagc.isChecked()):
+                    self.ui.EPgain.setEnabled(False)
+            else:
+                    self.ui.EPgain.setEnabled(True)
+
+    def EPcheckIncompatibility(self):
+            # FB: storage or boost?
+            if(float(self.ui.EPoverfdur.text()) > OVERF_DUR_MAX):
+                    a = QtGui.QMessageBox.warning(self, 
+                            self.tr("Incompatible setting"),
+                            self.tr("Interlock OverF Dur is greater than 1050.\nCheck it!"))
+                    if(a == QtGui.QMessageBox.Ok):
+                            return
+
+            if(self.ui.EPdsc.currentIndex() == DSC_AUTO) and (self.ui.EPswitches.currentIndex() != SWITCHES_AUTO):
+                    a = QtGui.QMessageBox.question(self, 
+                            self.tr("Incompatible setting"),
+                            self.tr("DSC is set to AUTO\nSwitch has to be set to AUTO"),
+                            QtGui.QMessageBox.Yes,
+                            QtGui.QMessageBox.No)
+                    if(a == QtGui.QMessageBox.Yes):
+                            self.ui.EPswitches.setCurrentIndex(SWITCHES_AUTO)
+
+            if(self.ui.EPswitches.currentIndex() == SWITCHES_DIRECT) and (self.ui.EPdsc.currentIndex() != DSC_OFF):
+                    a = QtGui.QMessageBox.question(self, 
+                            self.tr("Incompatible setting"),
+                            self.tr("Switches is set to DIRECT\nDSC has to be set to OFF"),
+                            QtGui.QMessageBox.Yes,
+                            QtGui.QMessageBox.No)
+                    if(a == QtGui.QMessageBox.Yes):
+                            self.ui.EPdsc.setCurrentIndex(DSC_OFF)
+
+    def setSwitches(self, v):
+            if v == SWITCH_AUTO:
+                    self.ui.EPswitches.setCurrentIndex(1)
+            else:
+                    self.ui.EPswitches.setCurrentIndex(0)
+
+    def getSwitches(self):
+            i = self.ui.EPswitches.currentIndex()
+            if i==1:
+                    return SWITCH_AUTO
+            else:
+                    return SWITCH_DIRECT
+
+    def setInterlockMode(self, v):
+            if v == 0:
+                    self.ui.EPmode.setCurrentIndex(0)
+            elif v == 1:
+                    self.ui.EPmode.setCurrentIndex(1)
+            elif v == 3:
+                    self.ui.EPmode.setCurrentIndex(2)
+            else:
+                    self.ui.EPmode.setCurrentIndex(0)
+
+    def getInterlockMode(self):
+            i = self.ui.EPmode.currentIndex()
+            if i==0:
+                    return 0
+            elif i==1:
+                    return 1
+            elif i==2:
+                    return 3
+            else:
+                    return 0
 
 class LiberaStatusBar(QtGui.QWidget):
     def __init__(self, parent):
