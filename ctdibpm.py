@@ -25,7 +25,9 @@
 
 # Alba imports
 import PyTango
-import tau
+from taurus.core.util import argparse
+from taurus.qt.qtgui.container import TaurusMainWindow
+from taurus.qt.qtgui.application import TaurusApplication
 
 # UI imports
 from ui_libera import Ui_MainWindow
@@ -196,7 +198,7 @@ class MainWindow(QtGui.QMainWindow):
                 "plot2"         : [None, None],
                 "start"         : [self.ui.ADCstart, "ADCAcquire"],
                 "stop"          : [self.ui.ADCstop, "ADCStop"],
-                "save"          : [None, None],
+                "save"          : [self.ui.ADCsave, "ADCSave"],
                 "resetPM"       : [None, None],
                 "samples"       : [self.ui.ADCsamples, "ADCNSamples"],
                 "samplesRB"     : [self.ui.ADCsamplesRB, 'ADCNSamples'],
@@ -208,7 +210,9 @@ class MainWindow(QtGui.QMainWindow):
                 "peakC"         : [self.ui.ADCPeakC, "ADCChannelCPeak"],
                 "peakD"         : [self.ui.ADCPeakD, "ADCChannelDPeak"],
                 "singleLoop"    : [self.ui.ADCcheckSingle, None],
-                "timestamp"     : [None, None],
+                "timestamp"     : [self.ui.ADCtimestamp, "ADCTimestamp"],
+                "timestampRB"   : [self.ui.ADCtimestampRB, "ADCTimestamp"],
+                "filename"      : [None, "ADCFileName"],
                 "enabled"       : [None, "ADCEnabled"],
                 }
                 self.ADCTab = LiberaTab(ADCTabWidgets)
@@ -220,7 +224,7 @@ class MainWindow(QtGui.QMainWindow):
                 "plot2"         : [self.ui.DDplotA2,"VaDD","VbDD","VcDD","VdDD"],
                 "start"         : [self.ui.DDstart1, 'DDAcquire'],
                 "stop"          : [self.ui.DDstop1, "DDStop"],
-                "save"          : [None, None],
+                "save"          : [self.ui.DDsave, "DDSave"],
                 "samples"       : [self.ui.DDNSamples1, 'DDNSamples'],
                 "samplesRB"     : [self.ui.DDNSamplesRB1, 'DDNSamples'],
                 "loops"         : [self.ui.DDloops1, 'DDNLoops'],
@@ -230,7 +234,9 @@ class MainWindow(QtGui.QMainWindow):
                 "decimation"    : [self.ui.DDDecimation1, 'DDDecimationFactor'],
                 "decimationRB"  : [self.ui.DDDecimationRB1, 'DDDecimationFactor'],
                 "singleLoop"    : [self.ui.DDcheckSingle1, None],
-                "timestamp"     : [None, None],
+                "timestamp"     : [self.ui.DDtimestamp, "DDTimestamp"],
+                "timestampRB"   : [self.ui.DDtimestampRB, "DDTimestamp"],
+                "filename"      : [None, "DDFileName"],
                 "enabled"       : [None, "DDEnabled"],
                 }
                 self.DDTab1 = LiberaTab(DDTab1Widgets)
@@ -253,8 +259,10 @@ class MainWindow(QtGui.QMainWindow):
                 "decimation"    : [self.ui.DDDecimation2, 'DDDecimationFactor'],
                 "decimationRB"  : [self.ui.DDDecimationRB2, 'DDDecimationFactor'],
                 "singleLoop"    : [self.ui.DDcheckSingle1, None],
-                "timestamp"     : [None, None],
+                "timestamp"     : [self.ui.DDtimestamp, "DDTimestamp"],
+                "timestampRB"   : [self.ui.DDtimestampRB, "DDTimestamp"],
                 "enabled"       : [None, "DDEnabled"],
+                "filename"      : [None, "DDFileName"],
                 }
                 self.DDTab2 = LiberaTab(DDTab2Widgets)
 
@@ -265,14 +273,16 @@ class MainWindow(QtGui.QMainWindow):
                 "plot2"         : [self.ui.PMplotA2,"VaPM","VbPM","VcPM","VdPM"],
                 "start"         : [self.ui.PMstart1, "PMAcquire"],
                 "stop"          : [None, None],
-                "save"          : [None, None],
+                "save"          : [self.ui.PMsave, "PMSave"],
                 "resetPM"       : [None, None],
                 "samples"       : [self.ui.PMNSamples1, "PMNSamples"],
                 "samplesRB"     : [self.ui.PMNSamplesRB1, "PMNSamples"],
                 "loops"         : [None, None],
                 "resetPM"       : [self.ui.PMreset1, "PMResetFlag"],
                 "singleLoop"    : [None, None],
-                "timestamp"     : [None, None],
+                "timestamp"     : [self.ui.PMtimestamp, "PMTimestamp"],
+                "timestampRB"   : [self.ui.PMtimestampRB, "PMTimestamp"],
+                "filename"      : [None, "PMFileName"],
                 }
                 self.PMTab1 = LiberaTab(PMTab1Widgets)
 
@@ -288,7 +298,9 @@ class MainWindow(QtGui.QMainWindow):
                 "samples"       : [self.ui.PMNSamples2, "PMNSamples"],
                 "samplesRB"     : [self.ui.PMNSamplesRB2, "PMNSamples"],
                 "singleLoop"    : [None, None],
-                "timestamp"     : [None, None],
+                "timestamp"     : [self.ui.PMtimestamp, "PMTimestamp"],
+                "timestampRB"   : [self.ui.PMtimestampRB, "PMTimestamp"],
+                "filename"      : [None, "PMFileName"],
                 }
                 self.PMTab2 = LiberaTab(PMTab2Widgets)
 
@@ -310,7 +322,6 @@ class MainWindow(QtGui.QMainWindow):
                 "timesleep"     : [self.ui.SAtimesleep1, "SASleep"],
                 "timesleepRB"   : [self.ui.SAtimesleepRB1, "SASleep"],
                 "filename"      : [None, "SAFileName"],
-                "savefunc"      : [None, None],
                 "enabled"       : [None, "SAEnabled"],
                 }
                 self.SATab1 = LiberaTab(SATab1Widgets)
@@ -333,7 +344,6 @@ class MainWindow(QtGui.QMainWindow):
                 "timesleep"     : [self.ui.SAtimesleep2, "SASleep"],
                 "timesleepRB"   : [self.ui.SAtimesleepRB2, "SASleep"],
                 "filename"      : [None, "SAFileName"],
-                "savefunc"      : [None, None],
                 "enabled"       : [None, "SAEnabled"],
                 }
                 self.SATab2 = LiberaTab(SATab2Widgets)
@@ -501,7 +511,7 @@ class MainWindow(QtGui.QMainWindow):
                 if(a == QtGui.QMessageBox.Yes):
                         self.dp.command_inout("LiberaStop")
                 elif(a == QtGui.QMessageBox.No):
-                        print "Libera Stop No"
+                        pass
 
         def actionLiberaRestart(self):
                 a = QtGui.QMessageBox.question(self, 
@@ -512,7 +522,7 @@ class MainWindow(QtGui.QMainWindow):
                 if(a == QtGui.QMessageBox.Yes):
                         self.dp.command_inout("LiberaRestart")
                 elif(a == QtGui.QMessageBox.No):
-                        print "Libera Restart No"
+                        pass
 
         def actionLiberaReboot(self):
                 a = QtGui.QMessageBox.question(self, 
@@ -523,7 +533,7 @@ class MainWindow(QtGui.QMainWindow):
                 if(a == QtGui.QMessageBox.Yes):
                         self.dp.command_inout("LiberaReboot")
                 elif(a == QtGui.QMessageBox.No):
-                        print "Libera Reboot No"
+                        pass
 
         def actionLiberaDSInit(self):
                 a = QtGui.QMessageBox.question(self, 
@@ -534,7 +544,7 @@ class MainWindow(QtGui.QMainWindow):
                 if(a == QtGui.QMessageBox.Yes):
                         self.dp.command_inout("RunDSCommand","init")
                 elif(a == QtGui.QMessageBox.No):
-                        print "Libera Init No"
+                        pass
 
         def actionOpen(self):
                 # Check we're connectd to something
@@ -783,9 +793,6 @@ class PostMortemConfiguration(QtGui.QDockWidget):
                                            self.tr("No connection to any libera"))
             return
 
-        print 80*"*", self.ui.PMxhigh.text().toFloat()
-        print 80*"*", self.ui.PMoverfdur.text().toInt()
-
         try:
             attrs_names = ["PMMode", "PMXHigh", "PMXLow", "PMZHigh", "PMZLow", "PMOverflowLimit","PMOverflowDuration"]
 
@@ -801,19 +808,13 @@ class PostMortemConfiguration(QtGui.QDockWidget):
 
             for idx, pair in enumerate(write_values):
                 value, success = pair
-                print success, value, attrs_names[idx]
                 if not success: 
                     QtGui.QMessageBox.critical(None, "PMset" , "Invalid %s" % attrs_names[idx])
                     return
 
             write_values = [item[0] for item in write_values]
 
-            print attrs_names
-            print write_values
-
-            #self.parent.dp.write_attributes([[attrs_names[i],write_values[i]] for i in range(len(attrs_names))])
             for attr_name, attr_value in [[attrs_names[i],write_values[i]] for i in range(len(attrs_names))]:
-                print "writing", attr_name, attr_value
                 self.parent.dp.write_attribute(attr_name, attr_value)
 
         except PyTango.DevFailed, e:
@@ -1745,24 +1746,15 @@ class Log(QtGui.QWidget):
 
 
 def main():
-    #parse posible arguments
-    parser = OptionParser()
+    parser = argparse.get_taurus_parser()
     parser.add_option("-d", "--device-name", action="store", dest="liberaDsName", type="string", help="Libera device name to connect to")
-    parser.add_option("-i", "--info", action="store_true", dest="info", help="print debug info")
-    (options, args) = parser.parse_args()
-
-    #set log level for tau
-    if options.info:
-        tau.setLogLevel(tau.Debug)
-
-    #start the application
-    app = QtGui.QApplication(args)
-    mainUI = MainWindow(None,options.liberaDsName)
-    mainUI.show()
-    #tau.core.utils.Logger.setLogLevel(tau.core.utils.Logger.Debug)
-    tau.setLogLevel(tau.Debug)
+    app = TaurusApplication(sys.argv, cmd_line_parser=parser,
+                      app_name="ctdibpm", app_version="1.1",
+                      org_domain="ALBA", org_name="ALBA")
+    options = app.get_command_line_options()
+    ui = MainWindow(liberaDeviceName=options.liberaDsName)
+    ui.show()
     sys.exit(app.exec_())
-
 
 
 if __name__ == "__main__":

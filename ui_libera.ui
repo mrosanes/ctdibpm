@@ -43,7 +43,7 @@
          </attribute>
          <layout class="QGridLayout" >
           <item row="0" column="0" >
-           <widget class="TauPlot" name="ADCplot" >
+           <widget class="TaurusPlot" name="ADCplot" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -127,7 +127,7 @@
                 </widget>
                </item>
                <item row="6" column="1" >
-                <widget class="TauValueLabel" name="ADCtriggers" >
+                <widget class="TaurusLabel" name="ADCtriggers" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
@@ -140,7 +140,7 @@
                    <height>24</height>
                   </size>
                  </property>
-                 <property name="showQuality" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
@@ -247,35 +247,35 @@
                 </widget>
                </item>
                <item row="7" column="1" >
-                <widget class="TauValueLabel" name="ADCPeakA" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="ADCPeakA" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="8" column="1" >
-                <widget class="TauValueLabel" name="ADCPeakB" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="ADCPeakB" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="9" column="1" >
-                <widget class="TauValueLabel" name="ADCPeakC" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="ADCPeakC" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="10" column="1" >
-                <widget class="TauValueLabel" name="ADCPeakD" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="ADCPeakD" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="3" column="1" >
-                <widget class="TauValueLineEdit" name="ADCsamples" >
+                <widget class="TaurusValueLineEdit" name="ADCsamples" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
@@ -291,21 +291,21 @@
                 </widget>
                </item>
                <item row="0" column="1" >
-                <widget class="TauValueLabel" name="ADCsamplesRB" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="ADCsamplesRB" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="4" column="1" >
-                <widget class="TauValueLabel" name="ADCloopsRB" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="ADCloopsRB" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="5" column="1" >
-                <widget class="TauValueLineEdit" name="ADCloops" />
+                <widget class="TaurusValueLineEdit" name="ADCloops" />
                </item>
                <item row="4" column="0" >
                 <widget class="QLabel" name="label_5" >
@@ -318,6 +318,37 @@
                   <string>Loops</string>
                  </property>
                 </widget>
+               </item>
+               <item row="14" column="1" >
+                <widget class="QPushButton" name="ADCsave" >
+                 <property name="text" >
+                  <string>Save</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="15" column="0" >
+                <widget class="QLabel" name="labelADCTimestamp" >
+                 <property name="text" >
+                  <string>Timestamp</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="15" column="1" >
+                <layout class="QHBoxLayout" name="horizontalLayout_5" >
+                 <item>
+                  <widget class="TaurusLed" name="ADCtimestampRB" />
+                 </item>
+                 <item>
+                  <widget class="TaurusValueCheckBox" name="ADCtimestamp" >
+                   <property name="showText" >
+                    <bool>false</bool>
+                   </property>
+                   <property name="autoApply" >
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
@@ -345,7 +376,7 @@
          </attribute>
          <layout class="QGridLayout" >
           <item row="0" column="0" >
-           <widget class="TauPlot" name="DDplotA1" >
+           <widget class="TaurusPlot" name="DDplotA1" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -426,14 +457,14 @@
                 </widget>
                </item>
                <item row="5" column="1" >
-                <widget class="TauValueLabel" name="DDTriggers1" >
+                <widget class="TaurusLabel" name="DDTriggers1" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="showQuality" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
@@ -480,18 +511,18 @@
                 </widget>
                </item>
                <item row="2" column="1" >
-                <widget class="TauValueLineEdit" name="DDNSamples1" />
+                <widget class="TaurusValueLineEdit" name="DDNSamples1" />
                </item>
                <item row="0" column="1" >
-                <widget class="TauValueLabel" name="DDNSamplesRB1" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="DDNSamplesRB1" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="3" column="1" >
-                <widget class="TauValueLabel" name="DDloopsRB1" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="DDloopsRB1" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
@@ -519,10 +550,10 @@
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout" >
                   <item>
-                   <widget class="TauBoolLed" name="DDDecimationRB1" />
+                   <widget class="TaurusLed" name="DDDecimationRB1" />
                   </item>
                   <item>
-                   <widget class="TauValueCheckBox" name="DDDecimation1" >
+                   <widget class="TaurusValueCheckBox" name="DDDecimation1" >
                     <property name="enabled" >
                      <bool>true</bool>
                     </property>
@@ -547,7 +578,38 @@
                 </widget>
                </item>
                <item row="4" column="1" >
-                <widget class="TauValueLineEdit" name="DDloops1" />
+                <widget class="TaurusValueLineEdit" name="DDloops1" />
+               </item>
+               <item row="12" column="1" >
+                <widget class="QPushButton" name="DDsave" >
+                 <property name="text" >
+                  <string>Save</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="13" column="0" >
+                <widget class="QLabel" name="labelDDTimestamp" >
+                 <property name="text" >
+                  <string>Timestamp</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="13" column="1" >
+                <layout class="QHBoxLayout" name="horizontalLayout_6" >
+                 <item>
+                  <widget class="TaurusLed" name="DDtimestampRB" />
+                 </item>
+                 <item>
+                  <widget class="TaurusValueCheckBox" name="DDtimestamp" >
+                   <property name="showText" >
+                    <bool>false</bool>
+                   </property>
+                   <property name="autoApply" >
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
@@ -568,7 +630,7 @@
            </layout>
           </item>
           <item row="1" column="0" >
-           <widget class="TauPlot" name="DDplotA2" >
+           <widget class="TaurusPlot" name="DDplotA2" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -585,7 +647,7 @@
          </attribute>
          <layout class="QGridLayout" >
           <item row="0" column="0" >
-           <widget class="TauPlot" name="DDplotB1" >
+           <widget class="TaurusPlot" name="DDplotB1" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -666,14 +728,14 @@
                 </widget>
                </item>
                <item row="5" column="1" >
-                <widget class="TauValueLabel" name="DDTriggers2" >
+                <widget class="TaurusLabel" name="DDTriggers2" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="showQuality" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
@@ -727,18 +789,18 @@
                 </widget>
                </item>
                <item row="2" column="1" >
-                <widget class="TauValueLineEdit" name="DDNSamples2" />
+                <widget class="TaurusValueLineEdit" name="DDNSamples2" />
                </item>
                <item row="0" column="1" >
-                <widget class="TauValueLabel" name="DDNSamplesRB2" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="DDNSamplesRB2" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="3" column="1" >
-                <widget class="TauValueLabel" name="DDloopsRB2" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="DDloopsRB2" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
@@ -758,10 +820,10 @@
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_2" >
                   <item>
-                   <widget class="TauBoolLed" name="DDDecimationRB2" />
+                   <widget class="TaurusLed" name="DDDecimationRB2" />
                   </item>
                   <item>
-                   <widget class="TauValueCheckBox" name="DDDecimation2" >
+                   <widget class="TaurusValueCheckBox" name="DDDecimation2" >
                     <property name="enabled" >
                      <bool>true</bool>
                     </property>
@@ -777,7 +839,7 @@
                 </widget>
                </item>
                <item row="4" column="1" >
-                <widget class="TauValueLineEdit" name="DDloops2" />
+                <widget class="TaurusValueLineEdit" name="DDloops2" />
                </item>
               </layout>
              </widget>
@@ -798,7 +860,7 @@
            </layout>
           </item>
           <item row="1" column="0" >
-           <widget class="TauPlot" name="DDplotB2" >
+           <widget class="TaurusPlot" name="DDplotB2" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -815,7 +877,7 @@
          </attribute>
          <layout class="QGridLayout" >
           <item row="0" column="0" >
-           <widget class="TauPlot" name="PMplotA1" >
+           <widget class="TaurusPlot" name="PMplotA1" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -886,14 +948,45 @@
                 </widget>
                </item>
                <item row="2" column="1" >
-                <widget class="TauValueLineEdit" name="PMNSamples1" />
+                <widget class="TaurusValueLineEdit" name="PMNSamples1" />
                </item>
                <item row="0" column="1" >
-                <widget class="TauValueLabel" name="PMNSamplesRB1" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="PMNSamplesRB1" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
+               </item>
+               <item row="6" column="0" >
+                <widget class="QLabel" name="labelPMTimestamp" >
+                 <property name="text" >
+                  <string>Timestamp</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1" >
+                <widget class="QPushButton" name="PMsave" >
+                 <property name="text" >
+                  <string>Save</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="1" >
+                <layout class="QHBoxLayout" name="horizontalLayout_7" >
+                 <item>
+                  <widget class="TaurusLed" name="PMtimestampRB" />
+                 </item>
+                 <item>
+                  <widget class="TaurusValueCheckBox" name="PMtimestamp" >
+                   <property name="showText" >
+                    <bool>false</bool>
+                   </property>
+                   <property name="autoApply" >
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
@@ -914,7 +1007,7 @@
            </layout>
           </item>
           <item row="1" column="0" >
-           <widget class="TauPlot" name="PMplotA2" >
+           <widget class="TaurusPlot" name="PMplotA2" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -931,7 +1024,7 @@
          </attribute>
          <layout class="QGridLayout" >
           <item row="0" column="0" >
-           <widget class="TauPlot" name="PMplotB1" />
+           <widget class="TaurusPlot" name="PMplotB1" />
           </item>
           <item rowspan="2" row="0" column="1" >
            <layout class="QVBoxLayout" >
@@ -1010,7 +1103,7 @@
                 </widget>
                </item>
                <item row="2" column="1" >
-                <widget class="TauValueLineEdit" name="PMNSamples2" >
+                <widget class="TaurusValueLineEdit" name="PMNSamples2" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
@@ -1020,14 +1113,14 @@
                 </widget>
                </item>
                <item row="0" column="1" >
-                <widget class="TauValueLabel" name="PMNSamplesRB2" >
+                <widget class="TaurusLabel" name="PMNSamplesRB2" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="showQuality" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
@@ -1054,7 +1147,7 @@
            </layout>
           </item>
           <item row="1" column="0" >
-           <widget class="TauPlot" name="PMplotB2" />
+           <widget class="TaurusPlot" name="PMplotB2" />
           </item>
          </layout>
         </widget>
@@ -1064,7 +1157,7 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout_6" >
           <item row="0" column="0" >
-           <widget class="TauPlot" name="SAplotA1" >
+           <widget class="TaurusPlot" name="SAplotA1" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -1124,20 +1217,20 @@
                 </widget>
                </item>
                <item row="0" column="1" >
-                <widget class="TauValueLabel" name="SANSamplesRB1" >
+                <widget class="TaurusLabel" name="SANSamplesRB1" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="showQuality" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="1" column="1" >
-                <widget class="TauValueLineEdit" name="SANSamples1" >
+                <widget class="TaurusValueLineEdit" name="SANSamples1" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
@@ -1159,23 +1252,23 @@
                 </widget>
                </item>
                <item row="2" column="1" >
-                <widget class="TauValueLabel" name="SAtimesleepRB1" >
+                <widget class="TaurusLabel" name="SAtimesleepRB1" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="showQuality" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
-                 <property name="showText" >
+                 <property name="showText" stdset="0" >
                   <bool>true</bool>
                  </property>
                 </widget>
                </item>
                <item row="3" column="1" >
-                <widget class="TauValueLineEdit" name="SAtimesleep1" >
+                <widget class="TaurusValueLineEdit" name="SAtimesleep1" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
@@ -1234,10 +1327,10 @@
                <item row="6" column="1" >
                 <layout class="QHBoxLayout" name="horizontalLayout_4" >
                  <item>
-                  <widget class="TauBoolLed" name="SAtimestampRB1" />
+                  <widget class="TaurusLed" name="SAtimestampRB1" />
                  </item>
                  <item>
-                  <widget class="TauValueCheckBox" name="SAtimestamp1" >
+                  <widget class="TaurusValueCheckBox" name="SAtimestamp1" >
                    <property name="sizePolicy" >
                     <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
                      <horstretch>0</horstretch>
@@ -1273,7 +1366,7 @@
            </layout>
           </item>
           <item row="1" column="0" >
-           <widget class="TauPlot" name="SAplotA2" >
+           <widget class="TaurusPlot" name="SAplotA2" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -1290,7 +1383,7 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout_3" >
           <item row="0" column="0" >
-           <widget class="TauPlot" name="SAplotB1" >
+           <widget class="TaurusPlot" name="SAplotB1" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -1363,20 +1456,20 @@
                 </widget>
                </item>
                <item row="0" column="1" >
-                <widget class="TauValueLabel" name="SANSamplesRB2" >
+                <widget class="TaurusLabel" name="SANSamplesRB2" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="showQuality" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="1" column="1" >
-                <widget class="TauValueLineEdit" name="SANSamples2" >
+                <widget class="TaurusValueLineEdit" name="SANSamples2" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
@@ -1404,20 +1497,20 @@
                 </widget>
                </item>
                <item row="2" column="1" >
-                <widget class="TauValueLabel" name="SAtimesleepRB2" >
+                <widget class="TaurusLabel" name="SAtimesleepRB2" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="showQuality" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
                </item>
                <item row="3" column="1" >
-                <widget class="TauValueLineEdit" name="SAtimesleep2" >
+                <widget class="TaurusValueLineEdit" name="SAtimesleep2" >
                  <property name="sizePolicy" >
                   <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
                    <horstretch>0</horstretch>
@@ -1461,10 +1554,10 @@
                <item row="6" column="1" >
                 <layout class="QHBoxLayout" name="horizontalLayout_3" >
                  <item>
-                  <widget class="TauBoolLed" name="SAtimestampRB2" />
+                  <widget class="TaurusLed" name="SAtimestampRB2" />
                  </item>
                  <item>
-                  <widget class="TauValueCheckBox" name="SAtimestamp2" >
+                  <widget class="TaurusValueCheckBox" name="SAtimestamp2" >
                    <property name="sizePolicy" >
                     <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
                      <horstretch>0</horstretch>
@@ -1487,7 +1580,7 @@
            </layout>
           </item>
           <item row="1" column="0" >
-           <widget class="TauPlot" name="SAplotB2" >
+           <widget class="TaurusPlot" name="SAplotB2" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -1504,7 +1597,7 @@
          </attribute>
          <layout class="QGridLayout" >
           <item row="0" column="0" >
-           <widget class="TauPlot" name="FAplotA1" >
+           <widget class="TaurusPlot" name="FAplotA1" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -1573,7 +1666,7 @@
                 </widget>
                </item>
                <item row="3" column="1" >
-                <widget class="TauValueLineEdit" name="FAfirstcount1" />
+                <widget class="TaurusValueLineEdit" name="FAfirstcount1" />
                </item>
                <item row="4" column="0" >
                 <widget class="QLabel" name="label_94" >
@@ -1588,7 +1681,7 @@
                 </widget>
                </item>
                <item row="4" column="1" >
-                <widget class="TauValueLineEdit" name="FAlastcount1" />
+                <widget class="TaurusValueLineEdit" name="FAlastcount1" />
                </item>
                <item row="5" column="1" >
                 <widget class="QPushButton" name="FAstart1" >
@@ -1628,11 +1721,11 @@
                 </widget>
                </item>
                <item row="2" column="1" >
-                <widget class="TauValueLineEdit" name="FANSamples1" />
+                <widget class="TaurusValueLineEdit" name="FANSamples1" />
                </item>
                <item row="0" column="1" >
-                <widget class="TauValueLabel" name="FANSamplesRB1" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="FANSamplesRB1" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
@@ -1656,7 +1749,7 @@
            </layout>
           </item>
           <item row="1" column="0" >
-           <widget class="TauPlot" name="FAplotA2" >
+           <widget class="TaurusPlot" name="FAplotA2" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -1673,7 +1766,7 @@
          </attribute>
          <layout class="QGridLayout" >
           <item row="0" column="0" >
-           <widget class="TauPlot" name="FAplotB1" >
+           <widget class="TaurusPlot" name="FAplotB1" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -1742,7 +1835,7 @@
                 </widget>
                </item>
                <item row="3" column="1" >
-                <widget class="TauValueLineEdit" name="FAfirstcount2" />
+                <widget class="TaurusValueLineEdit" name="FAfirstcount2" />
                </item>
                <item row="4" column="0" >
                 <widget class="QLabel" name="label_104" >
@@ -1757,7 +1850,7 @@
                 </widget>
                </item>
                <item row="4" column="1" >
-                <widget class="TauValueLineEdit" name="FAlastcount2" />
+                <widget class="TaurusValueLineEdit" name="FAlastcount2" />
                </item>
                <item row="5" column="1" >
                 <widget class="QPushButton" name="FAstart2" >
@@ -1790,11 +1883,11 @@
                 </widget>
                </item>
                <item row="2" column="1" >
-                <widget class="TauValueLineEdit" name="FANSamples2" />
+                <widget class="TaurusValueLineEdit" name="FANSamples2" />
                </item>
                <item row="0" column="1" >
-                <widget class="TauValueLabel" name="FANSamplesRB2" >
-                 <property name="showQuality" >
+                <widget class="TaurusLabel" name="FANSamplesRB2" >
+                 <property name="showQuality" stdset="0" >
                   <bool>false</bool>
                  </property>
                 </widget>
@@ -1825,7 +1918,7 @@
            </layout>
           </item>
           <item row="1" column="0" >
-           <widget class="TauPlot" name="FAplotB2" >
+           <widget class="TaurusPlot" name="FAplotB2" >
             <property name="sizePolicy" >
              <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
               <horstretch>1</horstretch>
@@ -2134,29 +2227,29 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TauBoolLed</class>
+   <class>TaurusLabel</class>
    <extends>QLabel</extends>
-   <header>tau.widget</header>
+   <header>taurus.qt.qtgui.display</header>
   </customwidget>
   <customwidget>
-   <class>TauValueCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>tau.widget</header>
-  </customwidget>
-  <customwidget>
-   <class>TauValueLineEdit</class>
+   <class>TaurusValueLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>tau.widget</header>
+   <header>taurus.qt.qtgui.input</header>
   </customwidget>
   <customwidget>
-   <class>TauValueLabel</class>
-   <extends>QLabel</extends>
-   <header>tau.widget</header>
+   <class>TaurusValueCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>taurus.qt.qtgui.input</header>
   </customwidget>
   <customwidget>
-   <class>TauPlot</class>
+   <class>TaurusPlot</class>
    <extends>QwtPlot</extends>
-   <header>tau.widget.qwt</header>
+   <header>taurus.qt.qtgui.plot</header>
+  </customwidget>
+  <customwidget>
+   <class>TaurusLed</class>
+   <extends>QLed</extends>
+   <header>taurus.qt.qtgui.display</header>
   </customwidget>
  </customwidgets>
  <tabstops>

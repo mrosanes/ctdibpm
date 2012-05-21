@@ -1,7 +1,7 @@
-<ui version="4.0" >
+<ui version="4.0">
  <class>GainScheme</class>
- <widget class="QWidget" name="GainScheme" >
-  <property name="geometry" >
+ <widget class="QWidget" name="GainScheme">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,88 +9,88 @@
     <height>541</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Gain Scheme</string>
   </property>
-  <layout class="QGridLayout" >
-   <item rowspan="8" row="0" column="0" >
-    <widget class="QTextEdit" name="textEdit" >
-     <property name="lineWrapMode" >
+  <layout class="QGridLayout">
+   <item rowspan="8" row="0" column="0">
+    <widget class="QTextEdit" name="textEdit">
+     <property name="lineWrapMode">
       <enum>QTextEdit::NoWrap</enum>
      </property>
-     <property name="acceptRichText" >
+     <property name="acceptRichText">
       <bool>false</bool>
      </property>
     </widget>
    </item>
-   <item row="0" column="1" >
-    <widget class="QPushButton" name="newButton" >
-     <property name="text" >
+   <item row="0" column="1">
+    <widget class="QPushButton" name="newButton">
+     <property name="text">
       <string>New</string>
      </property>
-     <property name="icon" >
-      <iconset resource="ctdibpm.qrc" >
+     <property name="icon">
+      <iconset resource="ctdibpm.qrc">
        <normaloff>:/icons/icons/new.png</normaloff>:/icons/icons/new.png</iconset>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" >
-    <widget class="QPushButton" name="openButton" >
-     <property name="text" >
+   <item row="1" column="1">
+    <widget class="QPushButton" name="openButton">
+     <property name="text">
       <string>Open</string>
      </property>
-     <property name="icon" >
-      <iconset resource="ctdibpm.qrc" >
+     <property name="icon">
+      <iconset resource="ctdibpm.qrc">
        <normaloff>:/icons/icons/open.png</normaloff>:/icons/icons/open.png</iconset>
      </property>
     </widget>
    </item>
-   <item row="2" column="1" >
-    <widget class="QPushButton" name="saveButton" >
-     <property name="text" >
+   <item row="2" column="1">
+    <widget class="QPushButton" name="saveButton">
+     <property name="text">
       <string>Save</string>
      </property>
-     <property name="icon" >
-      <iconset resource="ctdibpm.qrc" >
+     <property name="icon">
+      <iconset resource="ctdibpm.qrc">
        <normaloff>:/icons/icons/save.png</normaloff>:/icons/icons/save.png</iconset>
      </property>
     </widget>
    </item>
-   <item row="4" column="1" >
-    <widget class="Line" name="line" >
-     <property name="orientation" >
+   <item row="4" column="1">
+    <widget class="Line" name="line">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
-   <item row="5" column="1" >
-    <widget class="QPushButton" name="downloadGainButton" >
-     <property name="text" >
+   <item row="5" column="1">
+    <widget class="QPushButton" name="downloadGainButton">
+     <property name="text">
       <string>Load libera gain</string>
      </property>
-     <property name="icon" >
-      <iconset resource="ctdibpm.qrc" >
+     <property name="icon">
+      <iconset resource="ctdibpm.qrc">
        <normaloff>:/icons/icons/start2.png</normaloff>:/icons/icons/start2.png</iconset>
      </property>
     </widget>
    </item>
-   <item row="6" column="1" >
-    <widget class="QPushButton" name="uploadGainButton" >
-     <property name="text" >
+   <item row="6" column="1">
+    <widget class="QPushButton" name="uploadGainButton">
+     <property name="text">
       <string>Update libera</string>
      </property>
-     <property name="icon" >
-      <iconset resource="ctdibpm.qrc" >
+     <property name="icon">
+      <iconset resource="ctdibpm.qrc">
        <normaloff>:/icons/icons/restart.png</normaloff>:/icons/icons/restart.png</iconset>
      </property>
     </widget>
    </item>
-   <item row="7" column="1" >
+   <item row="7" column="1">
     <spacer>
-     <property name="orientation" >
+     <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>95</width>
        <height>301</height>
@@ -98,13 +98,13 @@
      </property>
     </spacer>
    </item>
-   <item row="3" column="1" >
-    <widget class="QPushButton" name="printButton" >
-     <property name="text" >
+   <item row="3" column="1">
+    <widget class="QPushButton" name="printButton">
+     <property name="text">
       <string>Print</string>
      </property>
-     <property name="icon" >
-      <iconset resource="ctdibpm.qrc" >
+     <property name="icon">
+      <iconset resource="ctdibpm.qrc">
        <normaloff>:/icons/icons/print.png</normaloff>:/icons/icons/print.png</iconset>
      </property>
     </widget>
@@ -112,7 +112,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="ctdibpm.qrc" />
+  <include location="ctdibpm.qrc"/>
  </resources>
  <connections/>
 </ui>

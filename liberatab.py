@@ -30,6 +30,18 @@ from os import sep
 
 
 class LiberaTab:
+
+        data_sources = \
+            { "ADC" : "adc",
+              "DDXZVolt" : "dd",
+              "DDQSum" : "dd",
+              "PMXZVolt" : "pm", 
+              "PMQSum" : "pm",
+              "SAXZVolt" : "sa",
+              "SAQSum" : "sa"
+        }
+
+
         def __init__(self, p):
                 self.p = p
                 self.tabName = p["tabname"]
@@ -108,9 +120,14 @@ class LiberaTab:
                         raise
 
         def save(self):
+            device = None
             try:
+                #modify device timeout, since this may be a long operation
+                old_timeout = self.dp.get_timeout_millis()
+                self.dp.set_timeout_millis(25000)
                 # Get file name from Save dialog
-                defaultName = PyTango.DeviceProxy(self.dsPyName).read_attribute("SAFileName").value
+                file_attr_name = "%sFileName" % self.data_sources[self.tabName]
+                defaultName = self.dp.read_attribute(file_attr_name).value
                 fileName, ok = QtGui.QInputDialog.getText(None, "File name", "File name:", QtGui.QLineEdit.Normal, defaultName)
                 if (not ok or fileName.isEmpty()):
                     return False
@@ -127,11 +144,13 @@ class LiberaTab:
                             timeStamp = False
                         self.dp.write_attribute(self.p["timestamp"][1],timeStamp)
 
-                    if (self.p["savefunc"][1] != None): #we're not in SA mode
-                        self.dp.command_inout(self.p["savefunc"][1])
+                    if (self.p["save"][1] != None): #we're not in SA mode
+                        self.dp.command_inout(self.p["save"][1])
             except Exception, e:
                 QtGui.QMessageBox.critical(None, self.tabName , repr(e))
                 return False
+            finally:
+                self.dp.set_timeout_millis(old_timeout)
 
             return True
 
@@ -174,9 +193,10 @@ class LiberaTab:
 
                 if(self.dsPyName):
                         try:
+                                data_source = self.data_sources[self.tabName]
                                 #if ADC or DD acquire, we must say if we want it to stop after
                                 #one reading cycle
-                                if (self.p["tabname"] in ("ADC","DDXZVolt", "DDQSum")):
+                                if (data_source in ("adc","dd")):
                                     singleLoop = self.singleLoop.isChecked()
                                     prevTimeout = self.dp.get_timeout_millis()
                                     self.dp.set_timeout_millis(10000)
@@ -200,7 +220,7 @@ class LiberaTab:
                                     return True
 
                                 # if we are in SA mode
-                                if (self.p["tabname"] in ("SAXZVolt","SAQSum")):
+                                if (data_source == "sa"):
                                     #Check data source is enabled
                                     if not check_source_enabled():
                                         return False
@@ -209,7 +229,7 @@ class LiberaTab:
 
                                 #if we're treating with FA data, we must increase timeout before executing
                                 #the command, since we can easily reach it depending on the length
-                                if (self.p["tabname"] in ("FAXZVolt", "FAQSum")):
+                                if (data_source == "fa"):
                                     prevTimeout = self.dp.get_timeout_millis()
                                     self.dp.set_timeout_millis(60000)
                                     self.dp.command_inout(self.p["start"][1])

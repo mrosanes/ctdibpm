@@ -57,9 +57,9 @@
     </widget>
    </item>
    <item>
-    <widget class="TauConfigLabel" name="LiberaStateConfigLabel" >
+    <widget class="TaurusLabel" name="LiberaStateConfigLabel" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+      <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -73,23 +73,29 @@
      <property name="wordWrap" >
       <bool>false</bool>
      </property>
+     <property name="bgRole" >
+      <string>none</string>
+     </property>
+     <property name="autoTrim" >
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item>
-    <widget class="TauStateLed" name="LiberaCppStateLED" >
+    <widget class="TaurusLed" name="LiberaCppStateLED" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="ledSize" >
+     <property name="ledSize" stdset="0" >
       <number>24</number>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="TauStateLed" name="LiberaPyStateLED" >
+    <widget class="TaurusLed" name="LiberaPyStateLED" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
        <horstretch>0</horstretch>
@@ -99,9 +105,62 @@
     </widget>
    </item>
    <item>
-    <widget class="TauConfigLabel" name="HwTempConfigLabel" >
+    <widget class="TaurusLabel" name="HwTempConfigLabel" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+      <sizepolicy vsizetype="Minimum" hsizetype="Expanding" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize" >
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="layoutDirection" >
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="scaledContents" >
+      <bool>true</bool>
+     </property>
+     <property name="wordWrap" >
+      <bool>false</bool>
+     </property>
+     <property name="bgRole" >
+      <string>none</string>
+     </property>
+     <property name="autoTrim" >
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="TaurusLabel" name="HwTempLabel" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="scaledContents" >
+      <bool>true</bool>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
+     </property>
+     <property name="autoTrim" >
+      <bool>false</bool>
+     </property>
+     <property name="showQuality" stdset="0" >
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="TaurusLabel" name="Fan1ConfigLabel" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -115,12 +174,18 @@
      <property name="wordWrap" >
       <bool>false</bool>
      </property>
+     <property name="bgRole" >
+      <string>none</string>
+     </property>
+     <property name="autoTrim" >
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item>
-    <widget class="TauValueLabel" name="HwTempLabel" >
+    <widget class="TaurusLabel" name="Fan1Label" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+      <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -131,15 +196,18 @@
      <property name="wordWrap" >
       <bool>true</bool>
      </property>
-     <property name="showQuality" >
+     <property name="autoTrim" >
+      <bool>false</bool>
+     </property>
+     <property name="showQuality" stdset="0" >
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="TauConfigLabel" name="Fan1ConfigLabel" >
+    <widget class="TaurusLabel" name="Fan2ConfigLabel" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+      <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -153,12 +221,18 @@
      <property name="wordWrap" >
       <bool>false</bool>
      </property>
+     <property name="bgRole" >
+      <string>none</string>
+     </property>
+     <property name="autoTrim" >
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item>
-    <widget class="TauValueLabel" name="Fan1Label" >
+    <widget class="TaurusLabel" name="Fan2Label" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+      <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -169,15 +243,18 @@
      <property name="wordWrap" >
       <bool>true</bool>
      </property>
-     <property name="showQuality" >
+     <property name="autoTrim" >
+      <bool>false</bool>
+     </property>
+     <property name="showQuality" stdset="0" >
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="TauConfigLabel" name="Fan2ConfigLabel" >
+    <widget class="TaurusLabel" name="SCPLLConfigLabel" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+      <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -191,12 +268,18 @@
      <property name="wordWrap" >
       <bool>false</bool>
      </property>
+     <property name="bgRole" >
+      <string>none</string>
+     </property>
+     <property name="autoTrim" >
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item>
-    <widget class="TauValueLabel" name="Fan2Label" >
+    <widget class="TaurusLabel" name="SCPLLLabel" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+      <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -207,15 +290,18 @@
      <property name="wordWrap" >
       <bool>true</bool>
      </property>
-     <property name="showQuality" >
+     <property name="autoTrim" >
+      <bool>false</bool>
+     </property>
+     <property name="showQuality" stdset="0" >
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="TauConfigLabel" name="SCPLLConfigLabel" >
+    <widget class="TaurusLabel" name="MCPLLConfigLabel" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+      <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -229,50 +315,18 @@
      <property name="wordWrap" >
       <bool>false</bool>
      </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="TauValueLabel" name="SCPLLLabel" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+     <property name="bgRole" >
+      <string>none</string>
      </property>
-     <property name="scaledContents" >
-      <bool>true</bool>
-     </property>
-     <property name="wordWrap" >
-      <bool>true</bool>
-     </property>
-     <property name="showQuality" >
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="TauConfigLabel" name="MCPLLConfigLabel" >
-     <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="layoutDirection" >
-      <enum>Qt::RightToLeft</enum>
-     </property>
-     <property name="scaledContents" >
-      <bool>true</bool>
-     </property>
-     <property name="wordWrap" >
+     <property name="autoTrim" >
       <bool>false</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="TauValueLabel" name="MCPLLLabel" >
+    <widget class="TaurusLabel" name="MCPLLLabel" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+      <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -283,15 +337,18 @@
      <property name="wordWrap" >
       <bool>true</bool>
      </property>
-     <property name="showQuality" >
+     <property name="autoTrim" >
+      <bool>false</bool>
+     </property>
+     <property name="showQuality" stdset="0" >
       <bool>true</bool>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="TauConfigLabel" name="PMConfigLabel" >
+    <widget class="TaurusLabel" name="PMConfigLabel" >
      <property name="sizePolicy" >
-      <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+      <sizepolicy vsizetype="Minimum" hsizetype="MinimumExpanding" >
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -305,10 +362,16 @@
      <property name="model" >
       <string/>
      </property>
+     <property name="bgRole" >
+      <string>none</string>
+     </property>
+     <property name="autoTrim" >
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item>
-    <widget class="TauBoolLed" name="PMFlagLed" >
+    <widget class="TaurusLed" name="PMFlagLed" >
      <property name="sizePolicy" >
       <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
        <horstretch>0</horstretch>
@@ -316,9 +379,15 @@
       </sizepolicy>
      </property>
      <property name="ledColor" >
-      <string>RED</string>
+      <string>red</string>
      </property>
-     <property name="ledSize" >
+     <property name="onColor" >
+      <string>red</string>
+     </property>
+     <property name="offColor" >
+      <string>green</string>
+     </property>
+     <property name="ledSize" stdset="0" >
       <number>48</number>
      </property>
     </widget>
@@ -327,24 +396,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TauStateLed</class>
+   <class>TaurusLabel</class>
    <extends>QLabel</extends>
-   <header>tau.widget</header>
+   <header>taurus.qt.qtgui.display</header>
   </customwidget>
   <customwidget>
-   <class>TauBoolLed</class>
-   <extends>QLabel</extends>
-   <header>tau.widget</header>
-  </customwidget>
-  <customwidget>
-   <class>TauConfigLabel</class>
-   <extends>QLabel</extends>
-   <header>tau.widget</header>
-  </customwidget>
-  <customwidget>
-   <class>TauValueLabel</class>
-   <extends>QLabel</extends>
-   <header>tau.widget</header>
+   <class>TaurusLed</class>
+   <extends>QLed</extends>
+   <header>taurus.qt.qtgui.display</header>
   </customwidget>
  </customwidgets>
  <resources/>
