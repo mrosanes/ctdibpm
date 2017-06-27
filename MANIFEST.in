@@ -1,0 +1,4 @@
+include ctdibpm/*.png
+include ctdibpm/*.py
+include ctdibpm/icons/*.ui 
+include ctdibpm/*.desktop
