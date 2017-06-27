@@ -6,7 +6,7 @@ from taurus.qt.qtgui.util.ui import UILoadable
 
 
 @UILoadable
-class Environment(QtGui.QDockWidget):
+class Ui_Environment(QtGui.QDockWidget):
     """A specialized QLineEdit"""
 
     def __init__(self, parent=None):
@@ -15,4 +15,4 @@ class Environment(QtGui.QDockWidget):
         QtGui.QDockWidget.__init__(self, parent=parent)
 
         # load the UI
-        self.loadUi()
+        self.loadUi("ui_environment.ui")

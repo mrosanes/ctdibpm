@@ -6,7 +6,7 @@ from taurus.qt.qtgui.util.ui import UILoadable
 
 
 @UILoadable
-class Log(QtGui.QDialog):
+class Ui_Log(QtGui.QDialog):
     """A specialized QLineEdit"""
 
     def __init__(self, parent=None):
@@ -15,4 +15,4 @@ class Log(QtGui.QDialog):
         QtGui.QDialog.__init__(self, parent=parent)
 
         # load the UI
-        self.loadUi()
+        self.loadUi("ui_log.ui")

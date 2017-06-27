@@ -6,7 +6,7 @@ from taurus.qt.qtgui.util.ui import UILoadable
 
 
 @UILoadable
-class GainScheme(QtGui.QWidget):
+class Ui_GainScheme(QtGui.QWidget):
     """A specialized QLineEdit"""
 
     def __init__(self, parent=None):
@@ -15,4 +15,4 @@ class GainScheme(QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent=parent)
 
         # load the UI
-        self.loadUi()
+        self.loadUi("ui_gainscheme.ui")

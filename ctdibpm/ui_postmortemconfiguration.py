@@ -6,7 +6,7 @@ from taurus.qt.qtgui.util.ui import UILoadable
 
 
 @UILoadable
-class PostMortemConfiguration(QtGui.QDockWidget):
+class Ui_PostMortemConfiguration(QtGui.QDockWidget):
     """A specialized QLineEdit"""
 
     def __init__(self, parent=None):
@@ -15,4 +15,4 @@ class PostMortemConfiguration(QtGui.QDockWidget):
         QtGui.QDockWidget.__init__(self, parent=parent)
 
         # load the UI
-        self.loadUi()
+        self.loadUi("ui_postmortemconfiguration.ui")

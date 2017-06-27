@@ -6,7 +6,7 @@ from taurus.qt.qtgui.util.ui import UILoadable
 
 
 @UILoadable
-class StatusBar(QtGui.QWidget):
+class Ui_StatusBar(QtGui.QWidget):
     """A specialized QLineEdit"""
 
     def __init__(self, parent=None):
@@ -15,4 +15,4 @@ class StatusBar(QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent=parent)
 
         # load the UI
-        self.loadUi()
+        self.loadUi("ui_statusbar.ui")
