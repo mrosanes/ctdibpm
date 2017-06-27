@@ -50,6 +50,7 @@ setup(
                     },
         },
     keywords='GUI',
+    include_package_data=True,
     description="GUI for BPM Configuration",
     long_description="Graphical User Interface for Beam Position Monitor "
     "Configuration",
