@@ -1,4 +1,4 @@
-include ctdibpm/*.ui
+include ctdibpm/ui/*.ui
 include ctdibpm/*.qrc
 include ctdibpm/icons/*.png
 include ctdibpm/*.desktop
