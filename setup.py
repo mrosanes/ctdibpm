@@ -35,8 +35,8 @@ setup(
     version=__version,    
     author="Jairo Moldes",
     author_email="jmoldes@cells.es",
-    maintainer='ct4'
-    maintainer_email='ct4@cells.es'
+    maintainer='ct4',
+    maintainer_email='ct4@cells.es',
     packages=find_packages(),
     entry_points={
         'console_scripts': [],
@@ -49,11 +49,11 @@ setup(
                 'executable': '/usr/bin/env python',
                     },
         },
-    keywords='GUI'
+    keywords='GUI',
     description="GUI for BPM Configuration",
     long_description="Graphical User Interface for Beam Position Monitor "
     "Configuration",
-    requires=['setuptools (>=1.1)']
+    requires=['setuptools (>=1.1)'],
     classifiers=['Development Status :: 5 - Production',
                  'Intended Audience :: Science/Research',
                  'License :: OSI Approved :: '
