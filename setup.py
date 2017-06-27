@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # ##### BEGIN GPL LICENSE BLOCK #####
 #
 #  This program is free software; you can redistribute it and/or
@@ -22,7 +24,7 @@ __license__ = "GPLv3+"
 
 # The version is updated automatically with bumpversion
 # Do not update manually
-__version = '2.72.0-alpha'  
+__version = '1.1.0-alpha'  
 
 
 from setuptools import setup, find_packages
@@ -30,9 +32,11 @@ from setuptools import setup, find_packages
 setup(
     name="ctdibpm",
     license=__license__, 
-    version=__version, 
+    version=__version,    
     author="Jairo Moldes",
     author_email="jmoldes@cells.es",
+    maintainer='ct4'
+    maintainer_email='ct4@cells.es'
     packages=find_packages(),
     entry_points={
         'console_scripts': [],
@@ -45,11 +49,11 @@ setup(
                 'executable': '/usr/bin/env python',
                     },
         },
-    include_package_data=True,
-    package_dir={'widgets': ['widgets/ui']},
-    package_data={'widgets': ['*.ui']},
-    description="Graphical User Interface for Beam Position Monitor "
+    keywords='GUI'
+    description="GUI for BPM Configuration",
+    long_description="Graphical User Interface for Beam Position Monitor "
     "Configuration",
+    requires=['setuptools (>=1.1)']
     classifiers=['Development Status :: 5 - Production',
                  'Intended Audience :: Science/Research',
                  'License :: OSI Approved :: '
