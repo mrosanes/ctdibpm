@@ -26,19 +26,10 @@
 # Alba imports
 import PyTango
 from taurus.core.util import argparse
+from taurus.external.qt import QtGui, QtCore, uic
 from taurus.qt.qtgui.container import TaurusMainWindow
 from taurus.qt.qtgui.application import TaurusApplication
 
-# UI imports
-from ui_libera import Ui_MainWindow
-from ui_settime import Ui_SetTime
-from ui_synchronize import Ui_Synchronize
-from ui_statusbar import Ui_StatusBar
-from ui_gainscheme import Ui_GainScheme
-from ui_about import Ui_About
-from ui_log import Ui_Log
-from ui_environment import Ui_Environment
-from ui_postmortemconfiguration import Ui_PostMortemConfiguration
 from liberatab import *
 from screenshot import Screenshot
 
@@ -87,12 +78,15 @@ DOC_URL = "http://www.cells.es/Intranet/Divisions/Computing/Controls/Help/DI/BPM
 
 
 class MainWindow(QtGui.QMainWindow):
+
         def __init__(self, parent=None,liberaDeviceName=None):
-                QtGui.QWidget.__init__(self, parent)
 
                 # Get graphical information
-                self.ui = Ui_MainWindow()
-                self.ui.setupUi(self)
+                QtGui.QWidget.__init__(self, parent=parent)
+                uipath = os.path.join(os.path.dirname(__file__),
+                                    "ui",
+                                    "ui_libera.ui")
+                self.ui = uic.loadUi(uipath, self)
 
                 # Add statusbar info to toolbar to save space. Insted of adding this to the toolBar,
                 # you can add it to the status bar. You'll have to modify the main ui file to include
@@ -737,8 +731,10 @@ class MainWindow(QtGui.QMainWindow):
 
         def actionAbout(self):
             self.aboutDialog = QtGui.QDialog()
-            self.about = Ui_About()
-            self.about.setupUi(self.aboutDialog)
+            uipath = os.path.join(os.path.dirname(__file__), 
+                                  "ui", 
+                                  "ui_about.ui")
+            uic.loadUi(uipath, self.aboutDialog)
             self.aboutDialog.exec_()
 
         def actionQuit(self):
@@ -748,14 +744,16 @@ class MainWindow(QtGui.QMainWindow):
 class PostMortemConfiguration(QtGui.QDockWidget):
 
     def __init__(self, parent):
-        QtGui.QWidget.__init__(self, parent)
-        self.ui = Ui_PostMortemConfiguration()
-        self.ui.setupUi(self)
+        QtGui.QWidget.__init__(self, parent=parent)
+        uipath = os.path.join(os.path.dirname(__file__), 
+                              "ui", 
+                              "ui_postmortemconfiguration.ui")
+        self.ui = uic.loadUi(uipath, self)
         self.parent = parent
 
         # Get/Set Buttons
-        QtCore.QObject.connect(self.ui.buttonPMget    , QtCore.SIGNAL("clicked()"), self.PMget)
-        QtCore.QObject.connect(self.ui.buttonPMset    , QtCore.SIGNAL("clicked()"), self.PMset)
+        QtCore.QObject.connect(self.ui.buttonPMget, QtCore.SIGNAL("clicked()"), self.PMget)
+        QtCore.QObject.connect(self.ui.buttonPMset, QtCore.SIGNAL("clicked()"), self.PMset)
 
         # EP Get and Set buttons will become red when any EP value changed.
         QtCore.QObject.connect(self.ui.comboPMmode, QtCore.SIGNAL("activated(const int)"), self.EPActivateWarning)
@@ -860,10 +858,13 @@ class PostMortemConfiguration(QtGui.QDockWidget):
 
 class Environment(QtGui.QDockWidget):
 
-    def __init__(self, parent):
-        QtGui.QWidget.__init__(self, parent)
-        self.ui = Ui_Environment()
-        self.ui.setupUi(self)
+    def __init__(self, parent):      
+        QtGui.QWidget.__init__(self, parent=parent)
+        uipath = os.path.join(os.path.dirname(__file__),
+                              "ui",
+                              "ui_environment.ui")
+        self.ui = uic.loadUi(uipath, self)
+        
         self.parent = parent
 
         # 'EP' Buttons
@@ -1186,13 +1187,17 @@ class Environment(QtGui.QDockWidget):
             else:
                     return 0
 
+
 class LiberaStatusBar(QtGui.QWidget):
     def __init__(self, parent):
-        QtGui.QWidget.__init__(self, parent)
 
-        self.ui = Ui_StatusBar()
-        self.ui.setupUi(self)
-
+        QtGui.QWidget.__init__(self, parent=parent)
+        
+        uipath = os.path.join(os.path.dirname(__file__),
+                              "ui",
+                              "ui_statusbar.ui")
+        self.ui = uic.loadUi(uipath, self)
+        
     def connectLibera(self, cppDevice, pyDevice):
         try:
                 attrName = cppDevice +"/HWTemperature"
@@ -1243,11 +1248,13 @@ class LiberaStatusBar(QtGui.QWidget):
 
 class SetTime(QtGui.QDialog):
     def __init__(self, parent):
-        QtGui.QDialog.__init__(self, parent)
 
-        self.ui = Ui_SetTime()
-        self.ui.setupUi(self)
-
+        QtGui.QDialog.__init__(self, parent=parent)
+        uipath = os.path.join(os.path.dirname(__file__),
+                              "ui",
+                              "ui_settime.ui")
+        self.ui = uic.loadUi(uipath, self)
+        
         # FB cambiar
         self.ui.MachineTimeLineEdit.setText(str(11))
         self.ui.MachinePhaseLineEdit.setText(str(22))
@@ -1344,10 +1351,13 @@ class SetTime(QtGui.QDialog):
 
 
 class SyncTime(QtGui.QDialog):
-    def __init__(self, parent):
-        QtGui.QDialog.__init__(self, parent)
-        self.ui = Ui_Synchronize()
-        self.ui.setupUi(self)
+    def __init__(self, parent):      
+        QtGui.QDialog.__init__(self, parent=parent)
+        uipath = os.path.join(os.path.dirname(__file__),
+                              "ui",
+                              "ui_synchronize.ui")
+        self.ui = uic.loadUi(uipath, self)
+        
         self.setup()
         QtCore.QObject.connect(self.ui.setButton,      QtCore.SIGNAL("clicked()"), self.setTimes)
         QtCore.QObject.connect(self.ui.clearButton,    QtCore.SIGNAL("clicked()"), self.clearContents)
@@ -1553,9 +1563,13 @@ class SyncTime(QtGui.QDialog):
 class GainScheme(QtGui.QWidget):
 
     def __init__(self, parent):
-        QtGui.QWidget.__init__(self, parent)
-        self.ui = Ui_GainScheme()
-        self.ui.setupUi(self)
+       
+        QtGui.QWidget.__init__(self, parent=parent)
+        uipath = os.path.join(os.path.dirname(__file__),
+                              "ui",
+                              "ui_gainscheme.ui")
+        self.ui = uic.loadUi(uipath, self)
+                
         self.ui.textEdit.setUndoRedoEnabled(True)
         self.dp = None
         self.textModified = False
@@ -1693,9 +1707,13 @@ class GainScheme(QtGui.QWidget):
 class Log(QtGui.QWidget):
 
     def __init__(self, parent):
-        QtGui.QWidget.__init__(self, parent)
-        self.ui = Ui_Log()
-        self.ui.setupUi(self)
+
+        QtGui.QWidget.__init__(self, parent=parent)
+        uipath = os.path.join(os.path.dirname(__file__),
+                              "ui",
+                              "ui_log.ui")
+        self.ui = uic.loadUi(uipath, self)
+        
         self.dp = None
         QtCore.QObject.connect(self.ui.updateButton,QtCore.SIGNAL("clicked()"), self.update)
         QtCore.QObject.connect(self.ui.saveButton,QtCore.SIGNAL("clicked()"), self.save)
