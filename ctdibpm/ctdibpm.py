@@ -88,7 +88,6 @@ class MainWindow(QtGui.QMainWindow):
                                     "ui",
                                     "ui_libera.ui")
                 self.ui = uic.loadUi(uipath, self)
-                # self.ui.setupUi(self)
                 
                 # Add statusbar info to toolbar to save space. Insted of adding this to the toolBar,
                 # you can add it to the status bar. You'll have to modify the main ui file to include
