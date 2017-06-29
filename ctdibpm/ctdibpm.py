@@ -26,10 +26,11 @@
 # Alba imports
 import PyTango
 from taurus.core.util import argparse
-from taurus.external.qt import QtGui, QtCore, uic
+from taurus.external.qt import uic
 from taurus.qt.qtgui.container import TaurusMainWindow
 from taurus.qt.qtgui.application import TaurusApplication
 
+import rcc_icons
 from liberatab import *
 from screenshot import Screenshot
 
@@ -82,12 +83,13 @@ class MainWindow(QtGui.QMainWindow):
         def __init__(self, parent=None,liberaDeviceName=None):
 
                 # Get graphical information
-                QtGui.QWidget.__init__(self, parent=parent)
+                QtGui.QMainWindow.__init__(self, parent=parent)
                 uipath = os.path.join(os.path.dirname(__file__),
                                     "ui",
                                     "ui_libera.ui")
                 self.ui = uic.loadUi(uipath, self)
-
+                # self.ui.setupUi(self)
+                
                 # Add statusbar info to toolbar to save space. Insted of adding this to the toolBar,
                 # you can add it to the status bar. You'll have to modify the main ui file to include
                 # a status bar and then substitute self.ui.toolBar.addWidget(self.LiberaStatusBar) by:
@@ -101,37 +103,37 @@ class MainWindow(QtGui.QMainWindow):
                 self.dsCppName = None
 
                 # 'File' Menu Actions
-                QtCore.QObject.connect(self.ui.actionLiberaStart,   QtCore.SIGNAL("triggered()"), self.actionLiberaStart)
-                QtCore.QObject.connect(self.ui.actionLiberaStop ,   QtCore.SIGNAL("triggered()"), self.actionLiberaStop)
-                QtCore.QObject.connect(self.ui.actionLiberaRestart, QtCore.SIGNAL("triggered()"), self.actionLiberaRestart)
-                QtCore.QObject.connect(self.ui.actionLiberaReboot,  QtCore.SIGNAL("triggered()"), self.actionLiberaReboot)
-                QtCore.QObject.connect(self.ui.actionLiberaDSInit,  QtCore.SIGNAL("triggered()"), self.actionLiberaDSInit)
-                QtCore.QObject.connect(self.ui.actionOpen,          QtCore.SIGNAL("triggered()"), self.actionOpen)
-                QtCore.QObject.connect(self.ui.actionSave,          QtCore.SIGNAL("triggered()"), self.actionSave)
-                QtCore.QObject.connect(self.ui.actionPrint,         QtCore.SIGNAL("triggered()"), self.actionPrint)
-                QtCore.QObject.connect(self.ui.actionScreenshot,    QtCore.SIGNAL("triggered()"), self.actionScreenshot)
-                QtCore.QObject.connect(self.ui.actionQuit,          QtCore.SIGNAL("triggered()"), self.actionQuit)
+                QtCore.QObject.connect(self.ui.actionLiberaStart,   QtCore.SIGNAL("triggered()"), self.onActionLiberaStart)
+                QtCore.QObject.connect(self.ui.actionLiberaStop ,   QtCore.SIGNAL("triggered()"), self.onActionLiberaStop)
+                QtCore.QObject.connect(self.ui.actionLiberaRestart, QtCore.SIGNAL("triggered()"), self.onActionLiberaRestart)
+                QtCore.QObject.connect(self.ui.actionLiberaReboot,  QtCore.SIGNAL("triggered()"), self.onActionLiberaReboot)
+                QtCore.QObject.connect(self.ui.actionLiberaDSInit,  QtCore.SIGNAL("triggered()"), self.onActionLiberaDSInit)
+                QtCore.QObject.connect(self.ui.actionOpen,          QtCore.SIGNAL("triggered()"), self.onActionOpen)
+                QtCore.QObject.connect(self.ui.actionSave,          QtCore.SIGNAL("triggered()"), self.onActionSave)
+                QtCore.QObject.connect(self.ui.actionPrint,         QtCore.SIGNAL("triggered()"), self.onActionPrint)
+                QtCore.QObject.connect(self.ui.actionScreenshot,    QtCore.SIGNAL("triggered()"), self.onActionScreenshot)
+                QtCore.QObject.connect(self.ui.actionQuit,          QtCore.SIGNAL("triggered()"), self.onActionQuit)
 
                 # 'Unit' Menu Actions
-                QtCore.QObject.connect(self.ui.actionConnectToLibera, QtCore.SIGNAL("triggered()"), self.actionConnectToLibera)
-                QtCore.QObject.connect(self.ui.actionSynchronize, QtCore.SIGNAL("triggered()"), self.actionSynchronize)
+                QtCore.QObject.connect(self.ui.actionConnectToLibera, QtCore.SIGNAL("triggered()"), self.onActionConnectToLibera)
+                QtCore.QObject.connect(self.ui.actionSynchronize, QtCore.SIGNAL("triggered()"), self.onActionSynchronize)
 
                 # 'Mode' Menu Actions
-                QtCore.QObject.connect(self.ui.actionADCTab, QtCore.SIGNAL("triggered()"), self.actionADCTab)
-                QtCore.QObject.connect(self.ui.actionDDTab1, QtCore.SIGNAL("triggered()"), self.actionDDTab1)
-                QtCore.QObject.connect(self.ui.actionDDTab2,   QtCore.SIGNAL("triggered()"), self.actionDDTab2)
-                QtCore.QObject.connect(self.ui.actionPMTab1, QtCore.SIGNAL("triggered()"), self.actionPMTab1)
-                QtCore.QObject.connect(self.ui.actionPMTab2,   QtCore.SIGNAL("triggered()"), self.actionPMTab2)
-                QtCore.QObject.connect(self.ui.actionSATab1, QtCore.SIGNAL("triggered()"), self.actionSATab1)
-                QtCore.QObject.connect(self.ui.actionSATab2,   QtCore.SIGNAL("triggered()"), self.actionSATab2)
-                QtCore.QObject.connect(self.ui.actionFATab1, QtCore.SIGNAL("triggered()"), self.actionFATab1)
-                QtCore.QObject.connect(self.ui.actionFATab2,   QtCore.SIGNAL("triggered()"), self.actionFATab2)
-                QtCore.QObject.connect(self.ui.actionGain,    QtCore.SIGNAL("triggered()"), self.actionGain)
-                QtCore.QObject.connect(self.ui.actionLog,    QtCore.SIGNAL("triggered()"), self.actionLog)
+                QtCore.QObject.connect(self.ui.actionADCTab, QtCore.SIGNAL("triggered()"), self.onActionADCTab)
+                QtCore.QObject.connect(self.ui.actionDDTab1, QtCore.SIGNAL("triggered()"), self.onActionDDTab1)
+                QtCore.QObject.connect(self.ui.actionDDTab2,   QtCore.SIGNAL("triggered()"), self.onActionDDTab2)
+                QtCore.QObject.connect(self.ui.actionPMTab1, QtCore.SIGNAL("triggered()"), self.onActionPMTab1)
+                QtCore.QObject.connect(self.ui.actionPMTab2,   QtCore.SIGNAL("triggered()"), self.onActionPMTab2)
+                QtCore.QObject.connect(self.ui.actionSATab1, QtCore.SIGNAL("triggered()"), self.onActionSATab1)
+                QtCore.QObject.connect(self.ui.actionSATab2,   QtCore.SIGNAL("triggered()"), self.onActionSATab2)
+                QtCore.QObject.connect(self.ui.actionFATab1, QtCore.SIGNAL("triggered()"), self.onActionFATab1)
+                QtCore.QObject.connect(self.ui.actionFATab2,   QtCore.SIGNAL("triggered()"), self.onActionFATab2)
+                QtCore.QObject.connect(self.ui.actionGain,    QtCore.SIGNAL("triggered()"), self.onActionGain)
+                QtCore.QObject.connect(self.ui.actionLog,    QtCore.SIGNAL("triggered()"), self.onActionLog)
 
                 # 'Help' Menu Actions
-                QtCore.QObject.connect(self.ui.actionHelp, QtCore.SIGNAL("triggered()"), self.actionHelp)
-                QtCore.QObject.connect(self.ui.actionAbout, QtCore.SIGNAL("triggered()"), self.actionAbout)
+                QtCore.QObject.connect(self.ui.actionHelp, QtCore.SIGNAL("triggered()"), self.onActionHelp)
+                QtCore.QObject.connect(self.ui.actionAbout, QtCore.SIGNAL("triggered()"), self.onActionAbout)
 
                 #Keep DD single acquisition check boxes synchronized
                 QtCore.QObject.connect(self.ui.DDcheckSingle1, QtCore.SIGNAL("toggled(bool)"), self.ui.DDcheckSingle2, QtCore.SLOT("setChecked(bool)") )
@@ -140,7 +142,7 @@ class MainWindow(QtGui.QMainWindow):
                 #Keep DD Decimation acquisition check boxes synchronized
                 #QtCore.QObject.connect(self.ui.DDDecimation1, QtCore.SIGNAL("toggled(bool)"), self.ui.DDDecimation2, QtCore.SLOT("setChecked(bool)") )
                 #QtCore.QObject.connect(self.ui.DDDecimation2, QtCore.SIGNAL("toggled(bool)"), self.ui.DDDecimation1, QtCore.SLOT("setChecked(bool)") )
-
+                
                 # Add Gain Scheme tab
                 self.gainScheme = GainScheme(self)
                 self.ui.tabWidget.insertTab(self.ui.tabWidget.count(),self.gainScheme,self.tr("Gain Scheme"))
@@ -410,7 +412,7 @@ class MainWindow(QtGui.QMainWindow):
                         return False
 
                 # Connect Tango Values for Environment Parameters and Post Mortem configuration (Warning! This may raise exception)
-                self.environment.EPget()
+                self.environment.onEPget()
                 self.postMortemConfiguration.PMget()
 
                 # Connect hardware values for StatusBar
@@ -443,40 +445,40 @@ class MainWindow(QtGui.QMainWindow):
                 self.dp = dpBack
                 return False
 
-        def actionADCTab(self):
+        def onActionADCTab(self):
                 self.ui.tabWidget.setCurrentIndex(0)
 
-        def actionDDTab1(self):
+        def onActionDDTab1(self):
                 self.ui.tabWidget.setCurrentIndex(1)
 
-        def actionDDTab2(self):
+        def onActionDDTab2(self):
                 self.ui.tabWidget.setCurrentIndex(2)
 
-        def actionPMTab1(self):
+        def onActionPMTab1(self):
                 self.ui.tabWidget.setCurrentIndex(3)
 
-        def actionPMTab2(self):
+        def onActionPMTab2(self):
                 self.ui.tabWidget.setCurrentIndex(4)
 
-        def actionSATab1(self):
+        def onActionSATab1(self):
                 self.ui.tabWidget.setCurrentIndex(5)
 
-        def actionSATab2(self):
+        def onActionSATab2(self):
                 self.ui.tabWidget.setCurrentIndex(6)
 
-        def actionFATab1(self):
+        def onActionFATab1(self):
                 self.ui.tabWidget.setCurrentIndex(7)
 
-        def actionFATab2(self):
+        def onActionFATab2(self):
                 self.ui.tabWidget.setCurrentIndex(8)
 
-        def actionGain(self):
+        def onActionGain(self):
                 self.ui.tabWidget.setCurrentIndex(9)
 
-        def actionLog(self):
+        def onActionLog(self):
                 self.ui.tabWidget.setCurrentIndex(10)
 
-        def actionConnectToLibera(self):
+        def onActionConnectToLibera(self):
             db = PyTango.Database()
             deviceList = list(db.get_device_name(SERVER_NAME,CLASS_NAME).value_string)
             name, ok = QtGui.QInputDialog.getItem(self, self.tr("Libera Selection"),
@@ -484,10 +486,10 @@ class MainWindow(QtGui.QMainWindow):
             if ok:
                 self.connectLibera(str(name.toAscii()))
 
-        def actionSynchronize(self):
+        def onActionSynchronize(self):
             self.synctime.show()
 
-        def actionLiberaStart(self):
+        def onActionLiberaStart(self):
                 a = QtGui.QMessageBox.question(self, 
                         self.tr("Libera Start"),
                         self.tr("Are you sure?"),
@@ -496,7 +498,7 @@ class MainWindow(QtGui.QMainWindow):
                 if(a == QtGui.QMessageBox.Yes):
                         self.dp.command_inout("LiberaStart")
 
-        def actionLiberaStop(self):
+        def onActionLiberaStop(self):
                 a = QtGui.QMessageBox.question(self, 
                         self.tr("Libera Stop"),
                         self.tr("Are you sure?"),
@@ -507,7 +509,7 @@ class MainWindow(QtGui.QMainWindow):
                 elif(a == QtGui.QMessageBox.No):
                         pass
 
-        def actionLiberaRestart(self):
+        def onActionLiberaRestart(self):
                 a = QtGui.QMessageBox.question(self, 
                         self.tr("Libera Restart"),
                         self.tr("Are you sure?"),
@@ -518,7 +520,7 @@ class MainWindow(QtGui.QMainWindow):
                 elif(a == QtGui.QMessageBox.No):
                         pass
 
-        def actionLiberaReboot(self):
+        def onActionLiberaReboot(self):
                 a = QtGui.QMessageBox.question(self, 
                         self.tr("Libera Reboot. This will take some time"),
                         self.tr("Are you sure?"),
@@ -529,7 +531,7 @@ class MainWindow(QtGui.QMainWindow):
                 elif(a == QtGui.QMessageBox.No):
                         pass
 
-        def actionLiberaDSInit(self):
+        def onActionLiberaDSInit(self):
                 a = QtGui.QMessageBox.question(self, 
                         self.tr("Libera Device server init."),
                         self.tr("Are you sure?"),
@@ -540,8 +542,8 @@ class MainWindow(QtGui.QMainWindow):
                 elif(a == QtGui.QMessageBox.No):
                         pass
 
-        def actionOpen(self):
-                # Check we're connectd to something
+        def onActionOpen(self):
+                # Check we're connected to something
                 if (self.dp is None):
                     QtGui.QMessageBox.warning(self,self.tr("Save environment parameters"),
                                                    self.tr("No connection to any libera"))
@@ -617,8 +619,8 @@ class MainWindow(QtGui.QMainWindow):
                 return textEdit 
 
 
-        def actionSave(self):
-                # Check we're connectd to something
+        def onActionSave(self):
+                # Check we're connected to something
                 if (self.dp is None):
                     QtGui.QMessageBox.warning(self,self.tr("Save environment parameters"),
                                                    self.tr("No connection to any libera"))
@@ -683,7 +685,7 @@ class MainWindow(QtGui.QMainWindow):
 
                 return True
 
-        def actionPrint(self):
+        def onActionPrint(self):
                 index = self.ui.tabWidget.currentIndex()
                 fileName = self.ui.tabWidget.tabText(index).toAscii()
 
@@ -723,13 +725,13 @@ class MainWindow(QtGui.QMainWindow):
 
                 return
 
-        def actionScreenshot(self):
+        def onActionScreenshot(self):
                 self.screenshot.show()
 
-        def actionHelp(self):
+        def onActionHelp(self):
             webbrowser.open(DOC_URL)
 
-        def actionAbout(self):
+        def onActionAbout(self):
             self.aboutDialog = QtGui.QDialog()
             uipath = os.path.join(os.path.dirname(__file__), 
                                   "ui", 
@@ -737,7 +739,7 @@ class MainWindow(QtGui.QMainWindow):
             uic.loadUi(uipath, self.aboutDialog)
             self.aboutDialog.exec_()
 
-        def actionQuit(self):
+        def onActionQuit(self):
             self.close()
 
 
@@ -868,9 +870,9 @@ class Environment(QtGui.QDockWidget):
         self.parent = parent
 
         # 'EP' Buttons
-        QtCore.QObject.connect(self.ui.EPget    , QtCore.SIGNAL("clicked()"), self.EPget)
-        QtCore.QObject.connect(self.ui.EPset    , QtCore.SIGNAL("clicked()"), self.EPset)
-        QtCore.QObject.connect(self.ui.EPsettime, QtCore.SIGNAL("clicked()"), self.EPsettime)
+        QtCore.QObject.connect(self.ui.EPget    , QtCore.SIGNAL("clicked()"), self.onEPget)
+        QtCore.QObject.connect(self.ui.EPset    , QtCore.SIGNAL("clicked()"), self.onEPset)
+        QtCore.QObject.connect(self.ui.EPsettime, QtCore.SIGNAL("clicked()"), self.onEPsettime)
         QtCore.QObject.connect(self.ui.EPagc    , QtCore.SIGNAL("clicked()"), self.EPsetgain)
 
         # EP Get and Set buttons will become red when any EP value changed.
@@ -901,10 +903,7 @@ class Environment(QtGui.QDockWidget):
         QtCore.QObject.connect(self.ui.EPmaflength, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
         QtCore.QObject.connect(self.ui.EPmafdelay, QtCore.SIGNAL("textChanged(const QString &)"), self.EPActivateWarning)
 
-        # 'EP' Buttons
-        QtCore.QObject.connect(self.ui.EPget, QtCore.SIGNAL("clicked()"), self.EPget)
-
-    def EPget(self):
+    def onEPget(self):
         """This function gets environment parameters from the hardware. It calls ParamGet of PyDS,
         which will get parameters from CppDS from hardware. This may cause EPGet to throw exceptions,
         so be sure you know how to handle them"""
@@ -972,7 +971,7 @@ class Environment(QtGui.QDockWidget):
                 QtGui.QMessageBox.critical(None, "EPget" , repr(e))
                 raise
 
-    def EPset(self):
+    def onEPset(self):
         if (self.parent.dp == None):
             QtGui.QMessageBox.warning(self,self.tr("Set environment parameters"),
                                            self.tr("No connection to any libera"))
@@ -1079,10 +1078,10 @@ class Environment(QtGui.QDockWidget):
         except PyTango.DevFailed, e:
             QtGui.QMessageBox.critical(None, "EPset" , repr(e))
         finally:
-                self.EPget()
+                self.onEPget()
         return
 
-    def EPsettime(self):
+    def onEPsettime(self):
             self.settime.connect(self.dp)
             self.settime.show()
 
@@ -1704,11 +1703,11 @@ class GainScheme(QtGui.QWidget):
             self.ui.textEdit.print_(printer)
 
 
-class Log(QtGui.QWidget):
+class Log(QtGui.QDialog):
 
     def __init__(self, parent):
 
-        QtGui.QWidget.__init__(self, parent=parent)
+        QtGui.QDialog.__init__(self, parent=parent)
         uipath = os.path.join(os.path.dirname(__file__),
                               "ui",
                               "ui_log.ui")
