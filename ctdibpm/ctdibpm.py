@@ -44,6 +44,7 @@ import webbrowser
 from datetime import datetime
 from optparse import OptionParser
 
+__version = '1.1.3'  # managed by bumpversion, do not edit manually
 
 # Enumeration Values
 SWITCHES_DIRECT         = 0
@@ -1765,7 +1766,7 @@ def main():
     parser = argparse.get_taurus_parser()
     parser.add_option("-d", "--device-name", action="store", dest="liberaDsName", type="string", help="Libera device name to connect to")
     app = TaurusApplication(sys.argv, cmd_line_parser=parser,
-                      app_name="ctdibpm", app_version="1.1",
+                      app_name="ctdibpm", app_version=__version,
                       org_domain="ALBA", org_name="ALBA")
     options = app.get_command_line_options()
     ui = MainWindow(liberaDeviceName=options.liberaDsName)
