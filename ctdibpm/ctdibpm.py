@@ -44,7 +44,7 @@ import webbrowser
 from datetime import datetime
 from optparse import OptionParser
 
-__version = '1.1.3'  # managed by bumpversion, do not edit manually
+__version = '1.1.4'  # managed by bumpversion, do not edit manually
 
 # Enumeration Values
 SWITCHES_DIRECT         = 0
